@@ -1,0 +1,42 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block content %}
+
+       <header class="header">
+            <div class="container">
+                <div class="header__inner">
+                    <a href="#" class="logo">
+                        <img src="{% static "images/logo.png" %}" alt="" class="logo__img" width="100px" height="60px">
+                    </a>
+                    <nav class="menu">
+                        <button class="menu__btn">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                        <ul class="menu__list">
+                            <li class="menu__list-item"><a href="{% url "main:index" %}" class="menu__list-link">HOME</a></li>
+                            <li class="menu__list-item"><a href="#" class="menu__list-link">PRODUCTS</a></li>
+                            <li class="menu__list-item"><a href="#" class="menu__list-link">SERVICE</a></li>
+                            <li class="menu__list-item"><a href="{% url "main:about" %}" class="menu__list-link">ABOUT US</a></li>
+                            <li class="menu__list-item--active"><a href="" class="menu__list-link">CONTACT US</a></li>
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
+        </header>
+
+
+<div class="card">
+    <img src="images/foto_2025-cb500f-matte_black_metallic-1505x923.alt=""
+        class="card__img">
+    <div class="card__content">
+        <h4 class="card__title">Ddfkjgh</h4>
+        <p class="card__text">DFGdh</p>
+        <p class="card__price">495867</p>
+    </div>
+    <a href="#" class="card__link">see details</a>
+</div>
+{% endblock content %}

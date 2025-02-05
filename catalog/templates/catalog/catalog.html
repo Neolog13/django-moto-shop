@@ -1,0 +1,105 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+  <header class="header">
+    <div class="container">
+      <div class="header__inner">
+        <a href="#" class="logo"><img src="{% static 'images/logo.png' %}" alt="" class="logo__img" width="100px" height="60px" /></a>
+        <nav class="menu">
+          <button class="menu__btn">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <ul class="menu__list">
+            <li class="menu__list-item">
+              <a href="{% url 'main:index' %}" class="menu__list-link">HOME</a>
+            </li>
+            <li class="menu__list-item">
+              <a href="#" class="menu__list-link">PRODUCTS</a>
+            </li>
+            <li class="menu__list-item">
+              <a href="#" class="menu__list-link">SERVICE</a>
+            </li>
+            <li class="menu__list-item">
+              <a href="{% url 'main:about' %}" class="menu__list-link">ABOUT US</a>
+            </li>
+            <li class="menu__list-item--active">
+              <a href="" class="menu__list-link">CONTACT US</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="choose">
+      <div class="container">
+        <h2 class="section-title">Choose your bike</h2>
+        <div class="tabs">
+          <div class="tabs__btn">
+
+            <button class="tabs__btn-item tabs__btn-item--active" data-button="content-1">Standart</button>
+            <button class="tabs__btn-item" data-button="content-2">Cruiser</button>
+            <button class="tabs__btn-item" data-button="content-3">Sport</button>
+            <button class="tabs__btn-item" data-button="content-4">Touring</button>
+
+          </div>
+          <div class="tabs__content">
+            {% comment %}first tab{% endcomment %}
+            {% for product in products %}
+            <div class="tabs__content-item tabs__content-item--active" id="content-1">
+              <div class="card">
+                <img src="{% static product.image %}" alt="" class="card__img">
+                <div class="card__content">
+                  <h4 class="card__title">{{ product.name }}</h4>
+                  <p class="card__text">{{ product.description }}</p>
+                  <p class="card__price">{{ product.price }}</p>
+                </div>
+                <a href="#" class="card__link">see details</a>
+              </div>
+            </div>
+            {% endfor %}
+            {% comment %}second tab{% endcomment %}
+            {% for product in products %}
+            <div class="tabs__content-item" id="content-2">
+              <div class="card">
+                <img src="{% static product.image %}" alt="" class="card__img">
+                <div class="card__content">
+                  <h4 class="card__title">{{ product.name }}</h4>
+                  <p class="card__text">{{ product.desctiption }}</p>
+                  <p class="card__price">{{ product.price }}</p>
+                </div>
+                <a href="#" class="card__link">see details</a>
+              </div>
+            </div>
+            {% endfor %}
+            {% comment %}third tab{% endcomment %}
+            <div class="tabs__content-item" id="content-3">3</div>
+            {% comment %}fourth tab{% endcomment %}
+            <div class="tabs__content-item" id="content-4">4</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="blog">
+      <div class="container">
+        <div class="blog__items">
+          <div class="blog__item">
+            <img class="blog__item-img" src="images/blog-1.jpg" alt="" width="580" height="260" />
+            <h4 class="blog__item-title">An easier way to buy your next Bike</h4>
+            <a href="#" class="blog__item-link">more</a>
+          </div>
+          <div class="blog__item">
+            <img class="blog__item-img" src="images/blog-2.jpg" alt="" width="580" height="260" />
+            <h4 class="blog__item-title">A Guide to Road-Tripping With Pets</h4>
+            <a href="#" class="blog__item-link">more</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+{% endblock %}

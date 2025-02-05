@@ -1,0 +1,37 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+
+{% block content %}
+       <header class="header">
+            <div class="container">
+                <div class="header__inner">
+                    <a href="#" class="logo">
+                        <img src="{% static "images/logo.png" %}" alt="" class="logo__img" width="100px" height="60px">
+                    </a>
+                    <nav class="menu">
+                        <button class="menu__btn">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                        <ul class="menu__list">
+                            <li class="menu__list-item"><a href="{% url "main:index" %}" class="menu__list-link">HOME</a></li>
+                            <li class="menu__list-item"><a href="#" class="menu__list-link">PRODUCTS</a></li>
+                            <li class="menu__list-item"><a href="#" class="menu__list-link">SERVICE</a></li>
+                            <li class="menu__list-item"><a href="{% url "main:about" %}" class="menu__list-link">ABOUT US</a></li>
+                            <li class="menu__list-item--active"><a href="" class="menu__list-link">CONTACT US</a></li>
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
+        </header>
+<section class="contacts">
+    <div class="container">
+        <h2 class="section-title contacts__title">About Us</h2>
+        <p class="contacts__text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minus, totam temporibus nostrum ab debitis cumque voluptatem sed ducimus sapiente est minima. Veritatis temporibus repellat ad illo neque rem eos labore eius quis voluptatem dolorem, veniam, iure qui architecto sequi iusto quaerat dicta et minus dolore aperiam harum assumenda? Ipsa dolorem voluptates quia officiis necessitatibus repellendus odit placeat, ad debitis ea, explicabo sapiente illo fuga distinctio eos, accusamus itaque maiores sequi consequuntur dolore fugit sit. Debitis mollitia molestias quidem in rem saepe totam ab ipsam pariatur eius ipsum, sed nobis, temporibus distinctio dolore dignissimos dolor ad voluptatibus provident quo. Cumque, nam.</p>
+
+    </div>
+</section>
+{% endblock %}

@@ -1,28 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="css/style.css">
-</head>
-
-<body>
+{% extends "main/base.html" %}
+{% load static %}
 
 
-    <div class="wrapper">
+{% block content %}
+
         <header class="header header-main">
             <div class="container">
                 <div class="header__inner">
                     <a href="#" class="logo">
-                        <img src="images/logo.png" alt="" class="logo__img" width="100px" height="60px">
+                        <img src="{% static "images/logo.png" %}" alt="" class="logo__img" width="100px" height="60px">
                     </a>
                     <nav class="menu">
                         <button class="menu__btn">
@@ -31,212 +17,143 @@
                             <span></span>
                         </button>
                         <ul class="menu__list">
-                            <li class="menu__list-item"><a href="new-bikes.html" class="menu__list-link">HOME</a></li>
-                            <li class="menu__list-item"><a href="#" class="menu__list-link">PRODUCTS</a></li>
+                            <li class="menu__list-item"><a href="{% url "main:index" %}" class="menu__list-link">HOME</a></li>
+                            <li class="menu__list-item"><a href="{% url "catalog:index" %}" class="menu__list-link">PRODUCTS</a></li>
                             <li class="menu__list-item"><a href="#" class="menu__list-link">SERVICE</a></li>
-                            <li class="menu__list-item"><a href="#" class="menu__list-link">ABOUT US</a></li>
-                            <li class="menu__list-item--active"><a href="contacts.html" class="menu__list-link">CONTACT US</a></li>
+                            <li class="menu__list-item"><a href="{% url "main:about" %}" class="menu__list-link">ABOUT US</a></li>
+                            <li class="menu__list-item--active"><a href="#" class="menu__list-link">CONTACT US</a></li>
                         </ul>
                     </nav>
 
                 </div>
             </div>
         </header>
-        <main class="main">
-
-            <section class="top">
-                <div class="container">
-                    <h1 class="title">
-                        The Best Motorcycles From The Best Store
-                    </h1>
-                    <a href="new-bikes.html" class="top__link">
-                        FIND YOUR BIKE
-                    </a>
-                </div>
-            </section>
-            <div class="slider">
-                <div class="swiper">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide" style="background-image: url(images/pic-1.jpg);"></div>
-                        <div class="swiper-slide" style="background-image: url(images/pic-2.jpg);"></div>
-                        <div class="swiper-slide" style="background-image: url(images/pic-1.jpg);"></div>
-                        <div class="swiper-slide" style="background-image: url(images/pic-1.jpg);"></div>
-                    </div>
-                    <div class="swiper-pagination"></div>
-                </div>
-
-            </div>
-            <section class="why-we">
-                <div class="container">
-                    <h2 class="section-title">
-                        Why We
-                    </h2>
-                    <ul class="why-we__list">
-                        <li class="why-we__item">
-                            <img class="why-we__item-img" src="images/icon_moto.png" alt="">
-                            <h3 class="why-we__item-title">
-                                Top Dealers
-                            </h3>
-                            <p class="why-we__item-text">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus cum maiores totam
-                                quis ab nesciunt officiis eaque quas culpa veniam.
-                            </p>
-                        </li>
-                        <li class="why-we__item">
-                            <img class="why-we__item-img" src="images/icon_moto.png" alt="">
-                            <h3 class="why-we__item-title">
-                                Discounted Pricing
-                            </h3>
-                            <p class="why-we__item-text">
-                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit, nihil!
-                            </p>
-                        </li>
-                        <li class="why-we__item">
-                            <img class="why-we__item-img" src="images/icon_moto.png" alt="">
-                            <h3 class="why-we__item-title">
-                                Lower Payments
-                            </h3>
-                            <p class="why-we__item-text">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. A ea perspiciatis eum quis sunt
-                                voluptate ad aperiam, quos ipsum non molestiae laborum consequatur, dolorum odio!
-                            </p>
-                        <li class="why-we__item">
-                            <img class="why-we__item-img" src="images/icon_moto.png" alt="">
-                            <h3 class="why-we__item-title">
-                                Easy Upgrade
-                            </h3>
-                            <p class="why-we__item-text">
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique, qui nihil? Illo,
-                                consequuntur ratione dolores nulla nihil labore quas ad. Non iure molestias voluptates
-                                itaque vitae ipsam incidunt ratione, dignissimos officia tempore debitis cumque numquam.
-                            </p>
-                        </li>
-                        </p>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-            <section class="video">
-                <div class="container">
-                    <h2 class="section-title video__title">
-                        welcome to the world of motorcycles
-                    </h2>
-                    <p class="video__text">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, deleniti?
-                    </p>
-                    <iframe class="video__content" width="1000" height="500"
-                        src="https://www.youtube.com/embed/hjTjEg1odLI?si=N7LcMvZ3rbeYZhFn&amp;controls=0"
-                        title="YouTube video player" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                </div>
-            </section>
-            <section class="important">
-                <div class="container">
-                    <h2 class="section-title important__title">
-                        Important Things to Consider
-                    </h2>
-                    <p class="important__text">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi rem ex aspernatur ratione
-                        mollitia ea dolores reprehenderit, rerum, omnis, ipsam nesciunt. Hic, excepturi? Assumenda neque
-                        quod odit atque harum ipsa. Error, illo.
-                    </p>
-                    <ul class="important__list">
-                        <li class="important__item">
-                            <img class="important__item-img" src="images/important.jpg" height="150" width="270" alt="">
-                            <p class="important__item-text">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, tenetur?
-                            </p>
-                        </li>
-                        <li class="important__item">
-                            <img class="important__item-img" src="images/important.jpg" height="150" width="270" alt="">
-                            <p class="important__item-text">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, tenetur?
-                            </p>
-                        </li>
-                        <li class="important__item">
-                            <img class="important__item-img" src="images/important.jpg" height="150" width="270" alt="">
-                            <p class="important__item-text">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, tenetur?
-                            </p>
-                        </li>
-                        <li class="important__item">
-                            <img class="important__item-img" src="images/important.jpg" height="150" width="270" alt="">
-                            <p class="important__item-text">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, tenetur?
-                            </p>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-        </main>
-        <footer class="footer">
-            <div class="container">
-                <nav class="footer__menu">
-                    <ul class="footer__menu-list">
-                        <li class="footer__menu-item">
-                            <p class="footer__menu-title">Products</p>
-                        </li>
-                        <li class="footer__menu-item"><a href="#" class="footer__menu-link">Used</a></li>
-                        <li class="footer__menu-item"><a href="#" class="footer__menu-link">New</a></li>
-                        <li class="footer__menu-item"><a href="#" class="footer__menu-link">Sell your bike</a></li>
-                    </ul>
-                    <ul class="footer__menu-list">
-                        <li class="footer__menu-item">
-                            <p class="footer__menu-title">Resources</p>
-                        </li>
-                        <li class="footer__menu-item"><a href="#" class="footer__menu-link">Blog</a></li>
-                        <li class="footer__menu-item"><a href="#" class="footer__menu-link">FAQ</a></li>
-                        <li class="footer__menu-item"><a href="#" class="footer__menu-link">Contact us</a></li>
-                    </ul>
-                    <ul class="footer__menu-list">
-                        <li class="footer__menu-item">
-                            <p class="footer__menu-title">Work With TrueBike</p>
-                        </li>
-                        <li class="footer__menu-item"><a href="#" class="footer__menu-link">Dealers</a></li>
-                        <li class="footer__menu-item"><a href="#" class="footer__menu-link">Partners</a></li>
-                    </ul>
-                    <ul class="footer__menu-list">
-                        <li class="footer__menu-item">
-                            <p class="footer__menu-title">About</p>
-                        </li>
-                        <li class="footer__menu-item"><a href="#" class="footer__menu-link">About us</a></li>
-                        <li class="footer__menu-item"><a href="#" class="footer__menu-link">Team</a></li>
-                        <li class="footer__menu-item"><a href="#" class="footer__menu-link">Careers</a></li>
-                    </ul>
-                </nav>
-                <ul class="app">
-                    <li class="app__item">
-                        <a href="#" class="app__item-link">
-                            <img src="images/appstore.png" alt="" class="app__item-img">
-                        </a>
-                    </li>
-                    <li class="app__item">
-                        <a href="#" class="app__item-link">
-                            <img src="images/googleplay.png" alt="" class="app__item-img">
-                        </a>
-                    </li>
-                </ul>
-                <div class="footer__copy">
-                    <p class="footer__copy-text">
-                        For questions about the TrueBike Buying Service please sell message to neologfly@gmail.com. <br>Изображение <a href="https://pixabay.com/ru/users/monoar_cgi_artist-2240009/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=6720610">Monoar Rahman Rony</a> с сайта <a href="https://pixabay.com/ru//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=6720610">Pixabay</a>
-                    </p>
-                </div>
-                <nav class="copy__nav">
-                    <ul class="copy__nav-list">
-                        <li class="copy__nav-item"><a href="#" class="copy__nav-link">Terms of Service</a></li>
-                        <li class="copy__nav-item"><a href="#" class="copy__nav-link">Privacy Policy</a></li>
-                        <li class="copy__nav-item"><a href="#" class="copy__nav-link">Do Not Sell My Personal
-                                Information</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </footer>
-
+<main class="main">
+<section class="top">
+    <div class="container">
+        <h1 class="title">
+            {{ title }}
+        </h1>
+        <a href="new-bikes.html" class="top__link">
+            {{ content }}
+        </a>
     </div>
+</section>
+<div class="slider">
+    <div class="swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" style="background-image: url({% static "images/pic-1.jpg" %});"></div>
+            <div class="swiper-slide" style="background-image: url({% static "images/pic-2.jpg" %});"></div>
+            <div class="swiper-slide" style="background-image: url({% static "images/pic-1.jpg" %});"></div>
+            <div class="swiper-slide" style="background-image: url({% static "images/pic-1.jpg" %});"></div>
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+</div>
+<section class="why-we">
+    <div class="container">
+        <h2 class="section-title">
+            Why We
+        </h2>
+        <ul class="why-we__list">
+            <li class="why-we__item">
+                <img class="why-we__item-img" src="{% static "images/icon_moto.png" %}" alt="">
+                <h3 class="why-we__item-title">
+                    Top Dealers
+                </h3>
+                <p class="why-we__item-text">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus cum maiores totam
+                    quis ab nesciunt officiis eaque quas culpa veniam.
+                </p>
+            </li>
+            <li class="why-we__item">
+                <img class="why-we__item-img" src="{% static "images/icon_moto.png" %}" alt="">
+                <h3 class="why-we__item-title">
+                    Discounted Pricing
+                </h3>
+                <p class="why-we__item-text">
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit, nihil!
+                </p>
+            </li>
+            <li class="why-we__item">
+                <img class="why-we__item-img" src="{% static "images/icon_moto.png" %}" alt="">
+                <h3 class="why-we__item-title">
+                    Lower Payments
+                </h3>
+                <p class="why-we__item-text">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. A ea perspiciatis eum quis sunt
+                    voluptate ad aperiam, quos ipsum non molestiae laborum consequatur, dolorum odio!
+                </p>
+            <li class="why-we__item">
+                <img class="why-we__item-img" src="{% static "images/icon_moto.png" %}" alt="">
+                <h3 class="why-we__item-title">
+                    Easy Upgrade
+                </h3>
+                <p class="why-we__item-text">
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique, qui nihil? Illo,
+                    consequuntur ratione dolores nulla nihil labore quas ad. Non iure molestias voluptates
+                    itaque vitae ipsam incidunt ratione, dignissimos officia tempore debitis cumque numquam.
+                </p>
+            </li>
+            </p>
+            </li>
+        </ul>
+    </div>
+</section>
+<section class="video">
+    <div class="container">
+        <h2 class="section-title video__title">
+            welcome to the world of motorcycles
+        </h2>
+        <p class="video__text">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, deleniti?
+        </p>
+        <iframe class="video__content" width="1000" height="500"
+            src="https://www.youtube.com/embed/hjTjEg1odLI?si=N7LcMvZ3rbeYZhFn&amp;controls=0"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+</section>
+<section class="important">
+    <div class="container">
+        <h2 class="section-title important__title">
+            Important Things to Consider
+        </h2>
+        <p class="important__text">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi rem ex aspernatur ratione
+            mollitia ea dolores reprehenderit, rerum, omnis, ipsam nesciunt. Hic, excepturi? Assumenda neque
+            quod odit atque harum ipsa. Error, illo.
+        </p>
+        <ul class="important__list">
+            <li class="important__item">
+                <img class="important__item-img" src="{% static "images/important.jpg" %}" height="150" width="270" alt="">
+                <p class="important__item-text">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, tenetur?
+                </p>
+            </li>
+            <li class="important__item">
+                <img class="important__item-img" src="{% static "images/important.jpg" %}" height="150" width="270" alt="">
+                <p class="important__item-text">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, tenetur?
+                </p>
+            </li>
+            <li class="important__item">
+                <img class="important__item-img" src="{% static "images/important.jpg" %}" height="150" width="270" alt="">
+                <p class="important__item-text">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, tenetur?
+                </p>
+            </li>
+            <li class="important__item">
+                <img class="important__item-img" src="{% static "images/important.jpg" %}" height="150" width="270" alt="">
+                <p class="important__item-text">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, tenetur?
+                </p>
+            </li>
+        </ul>
+    </div>
+</section>
+</main>
+{% endblock content %}
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="js/main.js"></script>
-</body>
 
-</html>
