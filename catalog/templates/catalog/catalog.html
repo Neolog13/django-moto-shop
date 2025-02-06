@@ -52,13 +52,17 @@
             {% for product in products %}
             <div class="tabs__content-item tabs__content-item--active" id="content-1">
               <div class="card">
-                <img src="{% static product.image %}" alt="" class="card__img">
+                {% comment %} {% if product.image %} {% endcomment %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="card__img">
+                {% comment %} {% elif  %} {% endcomment %}
+                {% comment %} <img src="{% static images/Not found image.png %}" alt="" class="card__img"> {% endcomment %}
+                {% comment %} {% endif %} {% endcomment %}
                 <div class="card__content">
                   <h4 class="card__title">{{ product.name }}</h4>
                   <p class="card__text">{{ product.description }}</p>
                   <p class="card__price">{{ product.price }}</p>
                 </div>
-                <a href="#" class="card__link">see details</a>
+                <a href="{% url "catalog:product" product.slug %}" class="card__link">see details</a>
               </div>
             </div>
             {% endfor %}

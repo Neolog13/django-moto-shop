@@ -30,13 +30,12 @@
 
 
 <div class="card">
-    <img src="images/foto_2025-cb500f-matte_black_metallic-1505x923.alt=""
+    <img src="{{ product.image.url }}"
         class="card__img">
     <div class="card__content">
-        <h4 class="card__title">Ddfkjgh</h4>
-        <p class="card__text">DFGdh</p>
-        <p class="card__price">495867</p>
+        <h4 class="card__title">{{ product.name }}</h4>
+        <p class="card__text">{{ product.description }}</p>
+        <p class="card__price">{{ product.price }}</p>
     </div>
-    <a href="#" class="card__link">see details</a>
 </div>
 {% endblock content %}
