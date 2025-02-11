@@ -22,6 +22,7 @@ class Products(models.Model):
 
     class Meta:
         db_table = 'product'
+        # ordering = ("id",)
 
     def __str__(self):
         return f'{self.name} price = {self.price}'

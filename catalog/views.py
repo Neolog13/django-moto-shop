@@ -1,97 +1,32 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render
 
 from catalog.models import Categories, Products
 
 
-def catalog(request):
-
-    products = Products.objects.all()
-
+def catalog_categories(request):
     categories = Categories.objects.all()
+    context = {
+        "title": 'Home - catalog',
+        "categories": categories,
+    }
+    return render(request, 'catalog/catalog.html', context=context)
 
+
+def catalog_products(request, category_slug, page=1):
+    categories = Categories.objects.all()
+    products = Products.objects.filter(category__slug=category_slug)
+
+    paginator = Paginator(products, 3)
+    current_page = paginator.page(page)
 
     context = {
         "title": 'Home - catalog',
         "categories": categories,
-        "products": products,
+        "products": current_page,
+        "slug_url": category_slug,
     }
-    #[
-    #     {
-    #         "image": 'images/foto_bikes/2024-cb1000r-black-edition-black-1505x923.avif',
-    #         "name": 'djsfkhgklj',
-    #         "description": 'sdljkfhgks',
-    #         "price":'324234',
-    #     },
-    #     {
-    #         "image": 'images/foto_bikes/2024-cb650r-pearl_smoky_gray-1505x923.avif',
-    #         "name": 'djsfkhgklj',
-    #         "description": 'sdljkfhgks',
-    #         "price":'324234',
-    #     },
-    #     {
-    #         "image": 'images/foto_bikes/2024-scl500-matte_black_metallic-1505x923.avif',
-    #         "name": 'djsfkhgklj',
-    #         "description": 'sdljkfhgks',
-    #         "price":'324234',
-    #     },
-    #     {
-    #         "image": 'images/foto_bikes/2025-cb500f-matte_black_metallic-1505x923',
-    #         "name": 'djsfkhgklj',
-    #         "description": 'sdljkfhgks',
-    #         "price":'324234',
-    #     },
-    #     {
-    #         "image": 'images/foto_bikes/2025-cb500f-matte_black_metallic-1505x923.avif',
-    #         "name": 'djsfkhgklj',
-    #         "description": 'sdljkfhgks',
-    #         "price":'324234',
-    #     },
-    #     {
-    #         "image": 'images/foto_bikes/2024-cb1000r-black-edition-black-1505x923.avif',
-    #         "name": 'djsfkhgklj',
-    #         "description": 'sdljkfhgks',
-    #         "price":'324234',
-    #     },
-    #     {
-    #         "image": 'images/foto_bikes/2024-cb1000r-black-edition-black-1505x923.avif',
-    #         "name": 'djsfkhgklj',
-    #         "description": 'sdljkfhgks',
-    #         "price":'324234',
-    #     },
-    #     {
-    #         "image": 'images/foto_bikes/2024-cb1000r-black-edition-black-1505x923.avif',
-    #         "name": 'djsfkhgklj',
-    #         "description": 'sdljkfhgks',
-    #         "price":'324234',
-    #     },
-    #     {
-    #         "image": 'images/foto_bikes/2024-cb1000r-black-edition-black-1505x923.avif',
-    #         "name": 'djsfkhgklj',
-    #         "description": 'sdljkfhgks',
-    #         "price":'324234',
-    #     },
-    #     {
-    #         "image": 'images/foto_bikes/2024-cb1000r-black-edition-black-1505x923.avif',
-    #         "name": 'djsfkhgklj',
-    #         "description": 'sdljkfhgks',
-    #         "price":'324234',
-    #     },
-    #     {
-    #         "image": 'images/foto_bikes/2024-cb1000r-black-edition-black-1505x923.avif',
-    #         "name": 'djsfkhgklj',
-    #         "description": 'sdljkfhgks',
-    #         "price":'324234',
-    #     },
-    #     {
-    #         "image": 'images/foto_bikes/2024-cb1000r-black-edition-black-1505x923.avif',
-    #         "name": 'djsfkhgklj',
-    #         "description": 'sdljkfhgks',
-    #         "price":'324234',
-    #     },
-    # ],
-
-
-    return render(request, 'catalog/catalog.html', context)
+    return render(request, 'catalog/category.html', context=context)
 
 
 def product(request, product_slug):

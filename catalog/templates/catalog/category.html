@@ -1,0 +1,187 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+  <header class="header">
+    <div class="container">
+      <div class="header__inner">
+        <a href="#" class="logo"><img src="{% static 'images/logo.png' %}" alt="" class="logo__img" width="100px" height="60px" /></a>
+        <nav class="menu">
+          <button class="menu__btn">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <ul class="menu__list">
+            <li class="menu__list-item">
+              <a href="{% url 'main:index' %}" class="menu__list-link">HOME</a>
+            </li>
+            <li class="menu__list-item">
+              <a href="#" class="menu__list-link">PRODUCTS</a>
+            </li>
+            <li class="menu__list-item">
+              <a href="#" class="menu__list-link">SERVICE</a>
+            </li>
+            <li class="menu__list-item">
+              <a href="{% url 'main:about' %}" class="menu__list-link">ABOUT US</a>
+            </li>
+            <li class="menu__list-item--active">
+              <a href="" class="menu__list-link">CONTACT US</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+
+<main class="main">
+  <section class="choose">
+    <div class="container">
+      <h2 class="section-title">Choose your bike</h2>
+      <div class="categories">
+        <div class="categories_btn">
+          {% for category in categories %}
+          <a href="{% url "catalog:category" category.slug %}" class="tabs__btn-item">{{ category.name }}</a>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="categories__content">
+        {% for product in products %}
+            <div class="categories__content-item">
+                <div class="card-item">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="item__img" width="280" height="172">
+                    <div class="item__content">
+                        <h4 class="item__title">{{ product.name }}</h4>
+                        <p class="item__text">{{ product.description|truncatechars:20 }}</p>
+                        <p class="item__price">{{ product.price }}</p>
+                    </div>
+                        <a href="{% url 'catalog:product' product.slug %}" class="item__link">see details</a>
+                </div>
+            </div>
+            
+            
+            {% endfor %}
+          </div>
+          
+          <!-- Pagination -->
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <div class="custom">
+                <li class="page-item {% if not products.has_previous %}disabled{% endif %}">
+                  <a href="{% if products.has_previous %}
+                  {% url "catalog:category" slug_url products.previous_page_number %}
+                  {% else %}
+                  #
+                  {% endif %}" class="page-link">Previous</a>
+                </li>
+
+
+{% for page in products.paginator.page_range %}
+{% if page >= products.number|add:-2 and page <= products.number|add:2 %}
+<li class="page-item {% if products.number == page %} no-click {% endif %}">
+  <a href="{% url "catalog:category" slug_url page %}" class="page-link">{{ page }}</a>
+</li>
+{% endif %}
+{% endfor %}
+
+
+                <li class="page-item {% if not products.has_next %}disabled{% endif %}">
+                  <a href="{% if products.has_next %}
+                  {% url "catalog:category" slug_url products.next_page_number %}
+                  {% else %}
+                  #
+                  {% endif %}" class="page-link">Next</a>
+                </li>
+
+
+
+
+                </li>
+              </div>
+            </ul>
+          </nav>
+
+
+
+
+    </div>
+  </section>
+</main>
+
+
+
+
+{% comment %} <main class="main">
+    <section class="choose">
+        <div class="container">
+        <h2 class="section-title">Choose your bike</h2>
+            <div class="tabs">
+                <div class="tabs__btn">
+                <!-- Categories -->
+                {% for category in categories %}
+                <a href="{% url "catalog:category" category.slug %}" class="tabs__btn-item">{{ category.name }}</a>
+                {% endfor %}
+                </div>
+
+
+                <div class="tabs__content-5">
+                    {% for product in products %}
+                        <div class="tabs__content-item-5">
+                            <div class="card-5">
+                                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="card__img-5" width="280" height="172">
+                                <div class="card__content-5">
+                                    <h4 class="card__title-5">{{ product.name }}</h4>
+                                    <p class="card__text-5">{{ product.description }}</p>
+                                    <p class="card__price-5">{{ product.price }}</p>
+                                </div>
+                                    <a href="{% url 'catalog:product' product.slug %}" class="card__link-5">see details</a>
+                            </div>
+                    {% endfor %}
+                        </div>
+                    </div>  {% endcomment %}
+                    {% comment %} <div class="tabs__content">
+                    {% for product in products %}
+                        <div class="tabs__content-item">
+                            <div class="card">
+                                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="card__img">
+                                <div class="card__content">
+                                    <h4 class="card__title">{{ product.name }}</h4>
+                                    <p class="card__text">{{ product.description }}</p>
+                                    <p class="card__price">{{ product.price }}</p>
+                                </div>
+                                    <a href="{% url 'catalog:product' product.slug %}" class="card__link">see details</a>
+                            </div>
+                    {% endfor %}
+                        </div>
+                    </div> {% endcomment %}
+            {% comment %} </div>
+        </div>
+    </section> {% endcomment %}
+
+
+
+
+
+
+    <section class="blog">
+      <div class="container">
+        <div class="blog__items">
+          <div class="blog__item">
+            <img class="blog__item-img" src="images/blog-1.jpg" alt="" width="580" height="260" />
+            <h4 class="blog__item-title">An easier way to buy your next Bike</h4>
+            <a href="#" class="blog__item-link">more</a>
+          </div>
+          <div class="blog__item">
+            <img class="blog__item-img" src="images/blog-2.jpg" alt="" width="580" height="260" />
+            <h4 class="blog__item-title">A Guide to Road-Tripping With Pets</h4>
+            <a href="#" class="blog__item-link">more</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+{% endblock %}
