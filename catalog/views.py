@@ -13,12 +13,13 @@ def catalog_categories(request):
     return render(request, 'catalog/catalog.html', context=context)
 
 
-def catalog_products(request, category_slug, page=1):
+def catalog_products(request, category_slug):
+    page = request.GET.get('page', 1)
     categories = Categories.objects.all()
     products = Products.objects.filter(category__slug=category_slug)
 
     paginator = Paginator(products, 3)
-    current_page = paginator.page(page)
+    current_page = paginator.page(int(page))
 
     context = {
         "title": 'Home - catalog',
