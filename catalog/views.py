@@ -1,3 +1,5 @@
+# 7:36
+
 from django.core.paginator import Paginator
 from django.shortcuts import render
 
@@ -14,9 +16,17 @@ def catalog_categories(request):
 
 
 def catalog_products(request, category_slug):
+
     page = request.GET.get('page', 1)
+    order_by = request.GET.get('order_by', None)
+
     categories = Categories.objects.all()
     products = Products.objects.filter(category__slug=category_slug)
+
+    if order_by and order_by != "default":
+        products = products.order_by(order_by)
+
+
 
     paginator = Paginator(products, 3)
     current_page = paginator.page(int(page))

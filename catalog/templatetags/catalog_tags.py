@@ -1,5 +1,6 @@
 from django import template
 from django.core.paginator import Paginator
+from django.utils.http import urlencode
 from catalog.models import Categories, Products
 
 
@@ -32,3 +33,10 @@ def tag_products(page_number=1, products_per_page=3):
 @register.simple_tag
 def tag_products_by_category(category):
     return Products.objects.filter(category=category)
+
+
+@register.simple_tag(takes_context=True)
+def change_params(context, **kwargs):
+    query = context['request'].GET.dict()
+    query.update(kwargs)
+    return urlencode(query)
