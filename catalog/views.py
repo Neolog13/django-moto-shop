@@ -1,4 +1,4 @@
-# 7:46
+# 8:29:49
 
 from django.core.paginator import Paginator
 from django.shortcuts import render
