@@ -104,7 +104,12 @@
 
 
 
-
+    {% if request.GET.q %}
+    <h3>Результаты поиска по запросу {{ request.GET.q }}</h3>
+    {% if not products %}
+      <h2>По запросу ничего не найдено</h2>
+    {% endif %}
+    {% endif %}
 
 
 
@@ -114,19 +119,34 @@
                 <div class="card-item">
                     <img src="{{ product.image.url }}" alt="{{ product.name }}" class="item__img" width="280" height="172">
                     <div class="item__content">
-                        <h4 class="item__title">{{ product.name }}</h4>
-                        <p class="item__text">{{ product.description|truncatechars:20 }}</p>
+                        <h4 class="item__title">
+                          {% autoescape off %}
+                            {% if product.headline %}
+                            {{ product.headline }}
+                            {% else %}
+                            {{ product.name }}
+                            {% endif %}
+                          {% endautoescape %}
+                        </h4>
+                        <p class="item__text">
+                          {% autoescape off %}
+                            {% if product.bodyline %}
+                            {{ product.bodyline|truncatechars:100 }}
+                            {% else %}
+                            {{ product.description|truncatechars:20 }}
+                            {% endif %}
+                          {% endautoescape %}
+                        </p>
                         <p class="item__price">{{ product.price }}</p>
                     </div>
                         <a href="{% url 'catalog:product' product.slug %}" class="item__link">see details</a>
                 </div>
             </div>
-            
-            
             {% endfor %}
           </div>
           
           <!-- Pagination -->
+          {% if products %}
           <nav aria-label="Page navigation example">
             <ul class="pagination">
               <div class="custom">
@@ -139,11 +159,11 @@
                 </li>
 
 
-{% for page in products.paginator.page_range %}
-{% if page >= products.number|add:-2 and page <= products.number|add:2 %}
-<li class="page-item {% if products.number == page %} no-click {% endif %}">
+                        {% for page in products.paginator.page_range %}
+              {% if page >= products.number|add:-2 and page <= products.number|add:2 %}
+              <li class="page-item {% if products.number == page %} no-click {% endif %}">
   <a href="?{% change_params page=page %}" class="page-link">{{ page }}</a>
-</li>
+              </li>
 {% endif %}
 {% endfor %}
 
@@ -155,16 +175,11 @@
                   #
                   {% endif %}" class="page-link">Next</a>
                 </li>
-
-
-
-
                 </li>
               </div>
             </ul>
-          </nav>
-
-
+          </nav> 
+          {% endif %}
 
 
     </div>
