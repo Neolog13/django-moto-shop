@@ -13,11 +13,76 @@
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+
+    <link rel="stylesheet" href="{% static "deps/css/bootstrap/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "deps/css/my_css.css" %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static "deps/favicon/apple-touch-icon.png" %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static "deps/favicon/favicon-32x32.png" %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static "deps/favicon/favicon-16x16.png" %}">
+    <link rel="manifest" href="{% static "deps/favicon/site.webmanifest" %}">
+
+
     <link rel="stylesheet" href="{% static "style.css" %}">
+
+
 </head>
 
 <body>
     <div class="wrapper">
+
+{% comment %} Общий хедер для всех {% endcomment %}
+        <header class="header {% block first_page_class %}{% endblock %}">
+            <div class="container">
+              <div class="header__inner">
+                <a href="#" class="logo"><img src="{% static 'images/logo.png' %}" alt="" class="logo__img" width="100px" height="60px" /></a>
+                <nav class="menu">
+                  <button class="menu__btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </button>
+                  <ul class="menu__list">
+                    <li class="menu__list-item">
+                      <a href="{% url 'main:index' %}" class="menu__list-link">HOME</a>
+                    </li>
+                    <li class="menu__list-item">
+                      <a href="{% url "catalog:index" %}" class="menu__list-link">PRODUCTS</a>
+                    </li>
+                    <li class="menu__list-item">
+                      <a href="#" class="menu__list-link">SERVICE</a>
+                    </li>
+                    <li class="menu__list-item">
+                      <a href="{% url 'main:about' %}" class="menu__list-link">ABOUT US</a>
+                    </li>
+                    <li class="menu__list-item--active">
+                      <a href="" class="menu__list-link">CONTACT US</a>
+                    </li>
+                    <li class="menu__list-item--active">
+                      <a href="{% url "user:login" %}" class="menu__list-link">Войти</a>
+                    </li>
+                    <li class="menu__list-item--active">
+                      <a href="{% url "user:profile" %}" class="menu__list-link">Личный кабинет</a>
+                    </li>
+                    <li class="menu__list-item--active">
+                      <a href="" class="menu__list-link">Корзина</a>
+                    </li>
+                    <li class="menu__list-item--active">
+                      <a href="{% url "user:logout" %}" class="menu__list-link">Выйти</a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </header>
+
+
+
+
+
+
+
+
 
 {% block content %}{% endblock  %}
 
