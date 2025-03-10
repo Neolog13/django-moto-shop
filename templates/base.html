@@ -58,18 +58,24 @@
                     <li class="menu__list-item--active">
                       <a href="" class="menu__list-link">CONTACT US</a>
                     </li>
+                    {% if not user.is_authenticated %}
                     <li class="menu__list-item--active">
-                      <a href="{% url "user:login" %}" class="menu__list-link">Войти</a>
+                      <a href="{% url "user:login" %}" class="menu__list-link">SIGN IN</a>
+                    </li>
+                    {% else %}
+                    <li class="menu__list-item--active">
+                      <a href="{% url "user:profile" %}" class="menu__list-link">PROFILE</a>
                     </li>
                     <li class="menu__list-item--active">
-                      <a href="{% url "user:profile" %}" class="menu__list-link">Личный кабинет</a>
+                      <a href="" class="menu__list-link">CART</a>
                     </li>
                     <li class="menu__list-item--active">
-                      <a href="" class="menu__list-link">Корзина</a>
+                      <a href="{% url "user:logout" %}" class="menu__list-link">ENTER FOR STAFF</a>
                     </li>
                     <li class="menu__list-item--active">
-                      <a href="{% url "user:logout" %}" class="menu__list-link">Выйти</a>
+                      <a href="{% url "user:logout" %}" class="menu__list-link">LOGOUT</a>
                     </li>
+                    {% endif %}
                   </ul>
                 </nav>
               </div>
