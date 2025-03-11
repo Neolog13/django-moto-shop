@@ -38,7 +38,7 @@
                     </div>
                     <div class="col p-0"><strong> {{ cart.products_price }} $</strong></div>
                     <div class="col p-0">
-                        <a href="{% url "cart:cart_remove" 1 %}" class="remove-from-cart"
+                        <a href="{% url "cart:cart_remove" cart.id %}" class="remove-from-cart"
                         data-cart-id="{{ cart.id }}">
                             {% csrf_token %}
                             <img class="mx-1" src="{% static "deps/icons/trash3-fill.svg" %}"
@@ -52,14 +52,15 @@
 </div>
 <div class="card mb-3 shadow-lg">
     <div class="card-footer">
-        <p class="float-left">Total <strong>{{ cart.total_quantity }}</strong> goods worth</p>
+        <p class="float-left">Total <strong>{{ cart.total_quantity }}</strong> good(s) worth</p>
         <h4 class="float-left"><strong>{{ cart.total_price }} $</strong></h4>
     </div>
+
 </div>
 {% if carts and not order%}
 {% comment %} <a class="btn btn-dark" href="{% url "orders:create_order" %}"> {% endcomment %}
     Order
-</a>
+{% comment %} </a> {% endcomment %}
 {% endif %}
 
 
