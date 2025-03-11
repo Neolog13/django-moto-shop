@@ -1,5 +1,8 @@
 {% load static %}
 
+
+
+
 <div class="card mb-3 text-bg-light shadow-lg">
     {% for cart in carts %}
         <div class="card-header">
@@ -12,8 +15,9 @@
                         <div class="input-group">
                             <span class="input-group-btn">
                                 <button type="button" class="btn btn-dark btn-sm decrement"
-                                    data-cart-id="{{ cart.id }}"
-                                    data-cart-change-url="{% url "cart:cart_change" %}">
+                                    data-cart-id="{{ cart.product.name }}"
+                                    data-cart-change-url="">
+{% comment %} {% url "cart:cart_change" %} {% endcomment %}
                                     {% csrf_token %}
                                     -</button>
                             </span>
@@ -22,21 +26,22 @@
                             <span class="input-group-btn">
                                 <button type="button" class="btn btn-dark btn-sm increment"
                                     data-cart-id="{{ cart.id }}"
-                                    data-cart-change-url="{% url "cart:cart_change" %}">
+                                    data-cart-change-url="">
+{% comment %} {% url "cart:cart_change" %} {% endcomment %}
                                     {% csrf_token %}
                                     +</button>
                             </span>
                         </div>
                     </div>
                     <div class="col p-0">
-                        <p>x {{ cart.product.sell_price }} = </p>
+                        <p>x {{ cart.product.price }} = </p>
                     </div>
-                    <div class="col p-0"><strong> {{cart.products_price}} $</strong></div>
+                    <div class="col p-0"><strong> {{ cart.products_price }} $</strong></div>
                     <div class="col p-0">
-                        <a href="{% url "cart:cart_remove" %}" class="remove-from-cart"
+                        <a href="{% url "cart:cart_remove" 1 %}" class="remove-from-cart"
                         data-cart-id="{{ cart.id }}">
                             {% csrf_token %}
-                            <img class="mx-1" src="{% static "icons/trash3-fill.svg" %}"
+                            <img class="mx-1" src="{% static "deps/icons/trash3-fill.svg" %}"
                                 alt="Catalog Icon" width="16" height="16">
                         </a>
                     </div>
@@ -47,12 +52,14 @@
 </div>
 <div class="card mb-3 shadow-lg">
     <div class="card-footer">
-        <p class="float-left">Итого <strong>{{ carts.total_quantity }}</strong> товар(а) на сумму</p>
-        <h4 class="float-left"><strong>{{ carts.total_price }} $</strong></h4>
+        <p class="float-left">Total <strong>{{ cart.total_quantity }}</strong> goods worth</p>
+        <h4 class="float-left"><strong>{{ cart.total_price }} $</strong></h4>
     </div>
 </div>
 {% if carts and not order%}
-<a class="btn btn-dark" href="{% url "orders:create_order" %}">
-    Оформить заказ
+{% comment %} <a class="btn btn-dark" href="{% url "orders:create_order" %}"> {% endcomment %}
+    Order
 </a>
 {% endif %}
+
+

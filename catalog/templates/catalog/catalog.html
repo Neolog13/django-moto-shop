@@ -3,6 +3,10 @@
 {% load catalog_tags %}
 {% load product_tags %}
 
+{% block modal_cart %}
+{% include "includes/cart_button.html" %}
+{% endblock  %}
+
 
 {% block content %}
   {% comment %} <header class="header">

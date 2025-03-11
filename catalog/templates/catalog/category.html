@@ -2,6 +2,10 @@
 {% load static %}
 {% load catalog_tags %}
 
+{% block modal_cart %}
+{% include "includes/cart_button.html" %}
+{% endblock  %}
+
 
 {% block content %}
 
@@ -140,6 +144,7 @@
                         <p class="item__price">{{ product.price }}</p>
                     </div>
                         <a href="{% url 'catalog:product' product.slug %}" class="item__link">see details</a>
+                        <a href="{% url "cart:cart_add" product.slug %}" class="btn btn-dark add-to-cart">Add to cart</a>
                 </div>
             </div>
             {% endfor %}

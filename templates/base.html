@@ -83,7 +83,9 @@
             </div>
           </header>
 
-
+{% comment %} Значек корзины, вызывает модальное окно {% endcomment %}
+{% block modal_cart %}{% endblock %}
+{% comment %} Закончилась разметка модального окна {% endcomment %}
 
 {% include "includes/notifications.html" %}
 {% block content %}{% endblock  %}
