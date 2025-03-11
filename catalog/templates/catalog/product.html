@@ -40,7 +40,12 @@
         <h4 class="card__title">{{ product.name }}</h4>
         <p class="card__text">{{ product.description }}</p>
         <p class="card__price">{{ product.price }}</p>
-        <a href="{% url "cart:cart_add" product.slug %}" class="btn btn-dark add-to-cart">Add to cart</a>
+        <a href="{% url "cart:cart_add" %}" class="btn btn-dark add-to-cart"
+        data-product-id="{{ product.id }}">
+            {% csrf_token %}
+            <img class="mx-1" src="{% static "deps/icons/cart-plus.svg" %}" alt="Catalog Icon" width="32" height="32">
+
+        </a>
     </div>
 </div>
 {% endblock content %}
