@@ -1,5 +1,4 @@
-# 9:14:11 - кнопка выйти
-# 9:16:41 - иконки
+#2:02
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth, messages
 from django.http import HttpResponseRedirect
