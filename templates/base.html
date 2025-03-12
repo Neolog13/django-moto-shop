@@ -77,6 +77,10 @@
                       <a href="{% url "user:logout" %}" class="menu__list-link">LOGOUT</a>
                     </li>
                     {% endif %}
+                  <li>{% block modal_cart %}
+                    {% include "includes/cart_button.html" %}
+                    {% endblock  %}
+                  </li>
                   </ul>
                 </nav>
               </div>
@@ -84,7 +88,7 @@
           </header>
 
 {% comment %} Значек корзины, вызывает модальное окно {% endcomment %}
-{% block modal_cart %}{% endblock %}
+{% comment %} {% block modal_cart %}{% endblock %} {% endcomment %}
 {% comment %} Закончилась разметка модального окна {% endcomment %}
 
 {% include "includes/notifications.html" %}
@@ -158,6 +162,8 @@
 
     <script src="{% static "deps/js/jquery/jquery-3.7.0.min.js" %}"></script>
     <script src="{% static "deps/js/jquery-ajax.js" %}"></script>
+
+    <script src="{% static "deps/js/jquery-events.js" %}"></script>
     <script src="{% static "deps/js/bootstrap/bootstrap.bundle.min.js" %}"></script>
     
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
