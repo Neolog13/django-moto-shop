@@ -4,11 +4,11 @@ from catalog.models import Products
 from users.models import User
 
 
-class CartQuerySet(models.QuerySet):
+class CartQueryset(models.QuerySet):
     
 
     def total_price(self):
-        return sum(cart.product_price for cart in self)
+        return sum(cart.products_price for cart in self)
     
 
     def total_quantity(self):
@@ -30,7 +30,7 @@ class Cart(models.Model):
         verbose_name = "Cart"
         verbose_name_plural = "Carts"
 
-    objects = CartQuerySet().as_manager()
+    objects = CartQueryset().as_manager()
 
 
     def product_price(self):

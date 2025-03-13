@@ -4,6 +4,8 @@
 
 
 <div class="card mb-3 text-bg-light shadow-lg">
+
+    
     {% for cart in carts %}
         <div class="card-header">
             <h5 class="card-title">{{ cart.product.name }}</h5>
@@ -46,15 +48,17 @@
                 </div>
             </li>
         </ul>
-    {% endfor %}
+        {% endfor %}
 </div>
 <div class="card mb-3 shadow-lg">
     <div class="card-footer">
-        <p class="float-left">Total <strong>{{ cart.total_quantity }}</strong> good(s) worth</p>
-        <h4 class="float-left"><strong>{{ cart.total_price }} $</strong></h4>
+        <p class="float-left">Total <strong>{{ carts.total_quantity }}</strong> good(s) worth</p>
+        <h4 class="float-left"><strong>{{ carts.product_price }} $</strong></h4>
     </div>
 
+
 </div>
+
 {% if carts and not order%}
 {% comment %} <a class="btn btn-dark" href="{% url "orders:create_order" %}"> {% endcomment %}
     Order
