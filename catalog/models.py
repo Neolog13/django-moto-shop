@@ -25,6 +25,7 @@ class Products(models.Model):
     price = models.DecimalField(
         default=0.00, max_digits=7, decimal_places=2, verbose_name="Price"
     )
+    quantity = models.PositiveIntegerField(default=0)
     category = models.ForeignKey(
         to=Categories, on_delete=models.CASCADE, verbose_name="Category"
     )

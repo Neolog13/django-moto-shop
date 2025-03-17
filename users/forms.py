@@ -1,4 +1,3 @@
-from xml.dom.minidom import CharacterData
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
 
@@ -10,23 +9,8 @@ class UserLoginForm(AuthenticationForm):
         model = User()
         fields = ['username', 'password']
 
-    # username = forms.CharField()
-    # password = forms.CharField()
-    # username = forms.CharField(
-    #     label = 'Name',
-    #     widget=forms.TextInput(attrs={"autofocus": True,
-    #                                 'class': 'form-control',
-    #                                 'placeholder': 'Введите имя пользователя'}))
-    # password = forms.CharField(
-    #     label = 'Password',
-    #     widget=forms.PasswordInput(attrs={"autocomplete": "current-password",
-    #                                 'class': 'form-control',
-    #                                 'placeholder': 'Введите ваш пароль'}),
-    #     )
-
 
 class UserRegistrationForm(UserCreationForm):
-    
     class Meta:
         model = User
         fields = (

@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>{{ title }}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -52,9 +52,6 @@
                     <li class="menu__list-item">
                       <a href="#" class="menu__list-link">SERVICE</a>
                     </li>
-                    <li class="menu__list-item">
-                      <a href="{% url 'main:about' %}" class="menu__list-link">ABOUT US</a>
-                    </li>
                     <li class="menu__list-item--active">
                       <a href="" class="menu__list-link">CONTACT US</a>
                     </li>
@@ -73,9 +70,20 @@
                     <li class="menu__list-item--active">
                       <a href="{% url "user:logout" %}" class="menu__list-link">ENTER FOR STAFF</a>
                     </li>
-                    <li class="menu__list-item--active">
+                    {% comment %} <li class="menu__list-item--active">
                       <a href="{% url "user:logout" %}" class="menu__list-link">LOGOUT</a>
+                    </li> {% endcomment %}
+
+
+                    <li class="menu__list-item--active">
+                      <form action="{% url "user:logout" %}" method="post">
+                        {% csrf_token %}
+                        <button style="background-color: transparent; border: none; color: white;"; type="submit" class="menu_list-link">LOGOUT</button>
+                      </form>
                     </li>
+
+
+
                     {% endif %}
                   <li>{% block modal_cart %}
                     {% include "includes/cart_button.html" %}

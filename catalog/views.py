@@ -1,56 +1,72 @@
-# 8:29:49
+from django.http import Http404
 
-from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.views.generic import DetailView, ListView
 
 from catalog.models import Categories, Products
 from catalog.utils import q_search
 
 
-def catalog_categories(request):
-    categories = Categories.objects.all()
-    context = {
-        "title": 'Home - catalog',
-        "categories": categories,
-    }
-    return render(request, 'catalog/catalog.html', context=context)
+#Displays a list of categories with a custom title
+class CategoriesView(ListView):
+    queryset = Categories.objects.all()
+    template_name = "catalog/catalog.html"
+    context_object_name = "categories"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Home - Categories"
+        return context
 
 
-def catalog_products(request, category_slug=None):
+# Displays a list of products in a specific category with filtering, ordering, and pagination.
+class CatalogView(ListView):
+    model = Products
+    template_name = "catalog/category.html"
+    context_object_name = "products"
+    paginate_by = 3
+    allow_empty = False
+    slug_url_kwarg = "category_slug"
 
-    page = request.GET.get('page', 1)
-    order_by = request.GET.get('order_by', None)
+
+    def get_queryset(self):
+        category_slug = self.kwargs.get("category_slug")
+        order_by = self.request.GET.get("order_by")
+        query = self.request.GET.get('q')
+
+        products = super().get_queryset().filter(category__slug=category_slug)
+
+        if not products.exists():
+            raise Http404("No products found for this category")
+
+        if query:
+            products = q_search(query)
+
+        if order_by and order_by != "default":
+            products = products.order_by(order_by)
+
+        return products
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Home - Catalog"
+        context["slug_url"] = self.kwargs.get(self.slug_url_kwarg)
+        context["categories"] = Categories.objects.all()
+        return context
+
+
+# Displays detailed information about a specific product based on its slug.
+class ProductView(DetailView):
+    template_name = "catalog/product.html"
+    slug_url_kwarg = "product_slug"
+    context_object_name = "product"
+
+    def get_object(self, queryset=None):
+        product = Products.objects.get(slug=self.kwargs.get(self.slug_url_kwarg))
+        return product
     
-    query = request.GET.get('q', None)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
-    categories = Categories.objects.all()
-    products = Products.objects.filter(category__slug=category_slug)
-
-    if query:
-        products = q_search(query)
-
-
-    if order_by and order_by != "default":
-        products = products.order_by(order_by)
-
-
-
-    paginator = Paginator(products, 3)
-    current_page = paginator.page(int(page))
-
-    context = {
-        "title": 'Home - catalog',
-        "categories": categories,
-        "products": current_page,
-        "slug_url": category_slug,
-    }
-    return render(request, 'catalog/category.html', context=context)
-
-
-def product(request, product_slug):
-    product = Products.objects.get(slug=product_slug)
-
-    context = {
-        'product': product
-    }
-    return render(request, 'catalog/product.html', context=context)
+        context['title'] = self.object.name
+        return context

@@ -51,6 +51,7 @@
             {% for category in categories %}
             <a href="{% url "catalog:category" category.slug %}" class="tabs__btn-item" data-button="content-{{ forloop.counter|add:1 }}">{{ category.name }}</a>
             {% endfor %}
+
             </div>
           </div>
       </div>

@@ -55,7 +55,7 @@
       <div class="categories">
         <div class="categories_btn">
           {% for category in categories %}
-          <a href="{% url "catalog:category" category.slug %}" class="tabs__btn-item">{{ category.name }}</a>
+          <a href="{% url "catalog:category" category.slug %}" class="tabs__btn-item" data-button="content={{ forloop.counter|add:1}}">{{ category.name }}</a>
           {% endfor %}
         </div>
       </div>
@@ -156,10 +156,10 @@
           <!-- Pagination -->
           {% if products %}
           <nav aria-label="Page navigation example">
-            <ul class="pagination">
-              <div class="custom">
-                <li class="page-item {% if not products.has_previous %}disabled{% endif %}">
-                  <a href="{% if products.has_previous %}?{% change_params page=products.previous_page_number %}
+            <ul class="pagination" justity-content-center my-4>
+              <div class="custom-shadow d-flex">
+                <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+                  <a href="{% if page_obj.has_previous %}?{% change_params page=page_obj.previous_page_number %}
                   {% comment %} {% url "catalog:category" slug_url products.previous_page_number %} {% endcomment %}
                   {% else %}
                   #
@@ -167,17 +167,17 @@
                 </li>
 
 
-                        {% for page in products.paginator.page_range %}
-              {% if page >= products.number|add:-2 and page <= products.number|add:2 %}
-              <li class="page-item {% if products.number == page %} no-click {% endif %}">
+                        {% for page in page_obj.paginator.page_range %}
+              {% if page >= page_obj.number|add:-2 and page <= page_obj.number|add:2 %}
+              <li class="page-item {% if page_obj.number == page %} no-click {% endif %}">
   <a href="?{% change_params page=page %}" class="page-link">{{ page }}</a>
               </li>
 {% endif %}
 {% endfor %}
 
 
-                <li class="page-item {% if not products.has_next %}disabled{% endif %}">
-                  <a href="{% if products.has_next %}?{% change_params page=products.next_page_number %}
+                <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+                  <a href="{% if products.has_next %}?{% change_params page=page_obj.next_page_number %}
                   {% comment %} {% url "catalog:category" slug_url products.next_page_number %} {% endcomment %}
                   {% else %}
                   #
