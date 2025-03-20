@@ -1,52 +1,22 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% comment %} {% block modal_cart %}
-{% include "includes/cart_button.html" %}
-{% endblock  %} {% endcomment %}
-
 {% block first_page_class %}header-main{% endblock %} %}
 {% block content %}
 
-
-        {% comment %} <header class="header header-main">
-            <div class="container">
-                <div class="header__inner">
-                    <a href="#" class="logo">
-                        <img src="{% static "images/logo.png" %}" alt="" class="logo__img" width="100px" height="60px">
-                    </a>
-                    <nav class="menu">
-                        <button class="menu__btn">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </button>
-                        <ul class="menu__list">
-                            <li class="menu__list-item"><a href="{% url "main:index" %}" class="menu__list-link">HOME</a></li>
-                            <li class="menu__list-item"><a href="{% url "catalog:index" %}" class="menu__list-link">PRODUCTS</a></li>
-                            <li class="menu__list-item"><a href="#" class="menu__list-link">SERVICE</a></li>
-                            <li class="menu__list-item"><a href="{% url "main:about" %}" class="menu__list-link">ABOUT US</a></li>
-                            <li class="menu__list-item--active"><a href="#" class="menu__list-link">CONTACT US</a></li>
-                        </ul>
-                    </nav>
-
-                </div>
-            </div>
-        </header> {% endcomment %}
 <main class="main">
 <section class="top">
     <div class="container">
         <h1 class="title">
             {{ title }}
         </h1>
-        <a href="new-bikes.html" class="top__link">
+        {% comment %} Button "Find your bike" {% endcomment %}
+        <a href="{% url "catalog:index" %}" class="top__link">
             {{ content }}
         </a>
     </div>
-
-
-
 </section>
+
 <div class="slider">
     <div class="swiper">
         <div class="swiper-wrapper">
@@ -58,9 +28,6 @@
         <div class="swiper-pagination"></div>
     </div>
 </div>
-
-
-
 
 <section class="why-we">
     <div class="container">

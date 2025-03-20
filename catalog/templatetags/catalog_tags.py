@@ -12,11 +12,6 @@ def tag_categories():
     return Categories.objects.all()
 
 
-# @register.simple_tag()
-# def tag_products():
-#     return Products.objects.all()
-
-
 @register.simple_tag
 def tag_products(page_number=1, products_per_page=3):
     products = Products.objects.all()

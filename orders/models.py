@@ -1,7 +1,6 @@
 from django.db import models
 
 
-from django.db import models
 from catalog.models import Products
 
 from users.models import User
@@ -25,7 +24,7 @@ class Order(models.Model):
     delivery_address = models.TextField(null=True, blank=True, verbose_name="Адрес доставки")
     payment_on_get = models.BooleanField(default=False, verbose_name="Оплата при получении")
     is_paid = models.BooleanField(default=False, verbose_name="Оплачено")
-    status = models.CharField(max_length=50, default='В обработке', verbose_name="Статус заказа")
+    status = models.CharField(max_length=50, default='Order in progress', verbose_name="Статус заказа")
 
     class Meta:
         db_table = "order"
@@ -48,8 +47,8 @@ class OrderItem(models.Model):
 
     class Meta:
         db_table = "order_item"
-        verbose_name = "Проданный товар"
-        verbose_name_plural = "Проданные товары"
+        verbose_name = "Sold product"
+        verbose_name_plural = "Sold products"
         ordering = ("id",)
 
     objects = OrderitemQueryset.as_manager()
@@ -59,5 +58,5 @@ class OrderItem(models.Model):
     # изменить sell_price
 
     def __str__(self):
-        return f"Товар {self.name} | Заказ № {self.order.pk}"
+        return f"Product {self.name} | Order № {self.order.pk}"
     

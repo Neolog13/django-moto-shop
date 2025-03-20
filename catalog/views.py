@@ -15,6 +15,7 @@ class CategoriesView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["title"] = "Home - Categories"
+        context["is_catalog_active"] = self.request.path.startswith('/catalog/')
         return context
 
 
@@ -24,26 +25,39 @@ class CatalogView(ListView):
     template_name = "catalog/category.html"
     context_object_name = "products"
     paginate_by = 3
-    allow_empty = False
+    # allow_empty = False
     slug_url_kwarg = "category_slug"
 
 
     def get_queryset(self):
-        category_slug = self.kwargs.get("category_slug")
+        #Уточнить!!!
+        # category_slug = self.kwargs.get("category_slug")
+        category_slug = self.kwargs.get(self.slug_url_kwarg)
+
         order_by = self.request.GET.get("order_by")
-        query = self.request.GET.get('q')
+        query = self.request.GET.get("q")
+        
 
-        products = super().get_queryset().filter(category__slug=category_slug)
+        if category_slug:
+            products = super().get_queryset().filter(category__slug=category_slug)
 
-        if not products.exists():
-            raise Http404("No products found for this category")
-
-        if query:
+        elif query:
             products = q_search(query)
 
         if order_by and order_by != "default":
             products = products.order_by(order_by)
 
+
+        # products = super().get_queryset().filter(category__slug=category_slug)
+
+        # if not products.exists():
+        #     raise Http404("No products found for this category")
+
+        # if query:
+        #     products = q_search(query)
+
+        # if order_by and order_by != "default":
+        #     products = products.order_by(order_by)
         return products
 
 
@@ -52,6 +66,10 @@ class CatalogView(ListView):
         context["title"] = "Home - Catalog"
         context["slug_url"] = self.kwargs.get(self.slug_url_kwarg)
         context["categories"] = Categories.objects.all()
+        context["is_catalog_active"] = self.request.path.startswith('/catalog/')
+        if not context["products"]:
+            context["message"] = "No products found in this category"
+
         return context
 
 
@@ -69,4 +87,5 @@ class ProductView(DetailView):
         context = super().get_context_data(**kwargs)
 
         context['title'] = self.object.name
+        context["is_catalog_active"] = self.request.path.startswith('/catalog/')
         return context

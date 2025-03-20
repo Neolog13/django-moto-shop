@@ -7,32 +7,6 @@
 
 {% block content %}
 
-       {% comment %} <header class="header">
-            <div class="container">
-                <div class="header__inner">
-                    <a href="#" class="logo">
-                        <img src="{% static "images/logo.png" %}" alt="" class="logo__img" width="100px" height="60px">
-                    </a>
-                    <nav class="menu">
-                        <button class="menu__btn">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </button>
-                        <ul class="menu__list">
-                            <li class="menu__list-item"><a href="{% url "main:index" %}" class="menu__list-link">HOME</a></li>
-                            <li class="menu__list-item"><a href="#" class="menu__list-link">PRODUCTS</a></li>
-                            <li class="menu__list-item"><a href="#" class="menu__list-link">SERVICE</a></li>
-                            <li class="menu__list-item"><a href="{% url "main:about" %}" class="menu__list-link">ABOUT US</a></li>
-                            <li class="menu__list-item--active"><a href="" class="menu__list-link">CONTACT US</a></li>
-                        </ul>
-                    </nav>
-
-                </div>
-            </div>
-        </header> {% endcomment %}
-
-
 <div class="card">
     <img src="{{ product.image.url }}"
         class="card__img">
@@ -40,12 +14,17 @@
         <h4 class="card__title">{{ product.name }}</h4>
         <p class="card__text">{{ product.description }}</p>
         <p class="card__price">{{ product.price }}</p>
+        {% if product.quantity < 1 %}
+        <div class="alert alert-warning">
+        Sorry, this item is temporarily out of stock and cannot be ordered.
+        </div>
+        {% else %}
         <a href="{% url "cart:cart_add" %}" class="btn btn-dark add-to-cart"
         data-product-id="{{ product.id }}">
             {% csrf_token %}
             <img class="mx-1" src="{% static "deps/icons/cart-plus.svg" %}" alt="Catalog Icon" width="32" height="32">
-
         </a>
+        {% endif %}
     </div>
 </div>
 {% endblock content %}

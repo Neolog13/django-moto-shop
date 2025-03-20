@@ -66,8 +66,9 @@ body {
     font-weight: 700;
 }
 .menu__list-link--active {
-    color: #0066FF;
+    color: #e8d9be;
 }
+
 .footer {
     background-color: #151515;
     padding: 50px 0 32px;
@@ -120,7 +121,7 @@ body {
 }
 .title {
     padding-bottom: 40px;
-    font-size: 96px;
+    font-size: 86px;
     font-weight: 700;
 }
 .top__link {
@@ -234,6 +235,11 @@ body {
     margin-bottom: 50px;
     padding: 0 100px;
 }
+.category__content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr 3fr);
+    gap: 30px;
+}
 .form {
     max-width: 580px;
     margin: 0 auto;
@@ -272,6 +278,11 @@ body {
     line-height: 1.3;
     color: #000;
     margin-bottom: 50px;
+    border: 1px solid #0066FF;
+}
+.textarea_container {
+    width: 100%;
+    padding: 0;
 }
 .form__btn {
     text-transform: uppercase;
@@ -291,12 +302,13 @@ body {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 40px;
+    margin-top: 20px;
 }
-.blog__item {
+/* .blog__item {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-}
+} */
 .blog__item-img {
     margin-bottom: 30px;
     width: 100%;
@@ -312,7 +324,7 @@ body {
     padding: 4px 20px;
 }
 .choose {
-    padding: 100px 0 150px;
+    padding: 50px 0 0px;
 }
 .tabs {
     margin-bottom: 70px;
@@ -330,7 +342,12 @@ body {
     border: none;
     background-color: transparent;
     padding: 0;
+    color: dark;
 }
+.tabs__btn-item:hover {
+    color: green;
+}
+/* картинки в категориях */
 .tabs__content-item {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -343,18 +360,45 @@ body {
     padding: 0 5px;
     border: 1px solid #0066FF;
     border-top: 0;
-    
 }
 .card__img {
     display: block;
     border: 1px solid #0066FF;
     width: 280px;
 }
-/* content item */
+.categories_btn {
+    display: flex;
+    justify-content: space-around;
+    margin: 30px;
+
+}
 .categories__content {
     display: grid;
-    grid-template-columns: 200px 200px 200px;
-    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+.item__img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+.item__link {
+    color: blue
+}
+.item__link:hover {
+    color: green;
+}
+.item__more {
+    display: flex;
+    justify-content: space-between;
+}
+.item__warning {
+    font-size: 15px;
+    align-items: left;
+    border-radius: 0;
+    padding: 10px;
+    margin-top: 5px;
+    padding: 2px;
 }
 .wrapper-15 {
     display: grid;
@@ -369,8 +413,11 @@ body {
 }
 
 .no-click {
-  pointer-events: none;
-  cursor: default;
+    pointer-events: none;
+    cursor: default;
+}
+.pagination {
+    margin-top: 50px;
 }
 
 /* adaptive------------------------------------------------- */
@@ -398,13 +445,39 @@ body {
     .important__item-img {
         width: 100%;
     }
+    /* Этот устарел */
     .tabs__content-item {
         grid-template-columns: repeat(3, 1fr);
+    }
+    .categories__content {
+        display: flex;
+        flex-wrap: wrap; /* Разрешаем перенос элементов на новую строку */
+        gap: 30px; /* Расстояние между элементами */
+    }
+
+    .categories__content-item {
+    /* display: flex; */
+        justify-content: center;
+        align-items: center;
+        flex-basis: 48%; /* Каждый элемент будет занимать 48% ширины, чтобы их было два в строке */
+    }
+
+    .categories__content-item:nth-child(3) {
+        flex-basis: 48%; /* Третий элемент тоже будет занимать 48% ширины */
+        margin-left: auto; /* Отодвигаем третий элемент в центр */
+        margin-right: auto; /* Отодвигаем третий элемент в центр */
+    }
+
+/* 
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px; */
+
     }
     .card__img {
         width: 350px;
     }
-}
+
 @media (max-width: 1040px) {
     .video__content {
         width: 100%;
@@ -414,7 +487,8 @@ body {
         gap: 20px;
     }
 }
-@media (max-width: 860px) {
+/* 860 */
+@media (max-width: 920px) {
     .menu__btn {
         display: flex;
         z-index: 5;
@@ -451,6 +525,16 @@ body {
     }
     .tabs__content__list {
         grid-template-columns: repeat(2, 1fr);
+    }
+    .categories__content {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    }
+    .blog__items {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .category__content {
+        grid-template-columns: 1fr;
     }
 }
 

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load cache %}
 {% load catalog_tags %}
 {% load product_tags %}
 
@@ -9,64 +10,37 @@
 
 
 {% block content %}
-  {% comment %} <header class="header">
-    <div class="container">
-      <div class="header__inner">
-        <a href="#" class="logo"><img src="{% static 'images/logo.png' %}" alt="" class="logo__img" width="100px" height="60px" /></a>
-        <nav class="menu">
-          <button class="menu__btn">
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-          <ul class="menu__list">
-            <li class="menu__list-item">
-              <a href="{% url 'main:index' %}" class="menu__list-link">HOME</a>
-            </li>
-            <li class="menu__list-item">
-              <a href="#" class="menu__list-link">PRODUCTS</a>
-            </li>
-            <li class="menu__list-item">
-              <a href="#" class="menu__list-link">SERVICE</a>
-            </li>
-            <li class="menu__list-item">
-              <a href="{% url 'main:about' %}" class="menu__list-link">ABOUT US</a>
-            </li>
-            <li class="menu__list-item--active">
-              <a href="" class="menu__list-link">CONTACT US</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </div>
-  </header> {% endcomment %}
 
   <main class="main">
     <section class="choose">
       <div class="container">
-        <h2 class="section-title">Choose your bike</h2>
+        <h2 class="section-title mb-5">Choose category of your bike</h2>
+
           <div class="tabs">
             <div class="tabs__btn">
               <!-- Categories -->
+            {% comment %} {% cache 60 catalog_categories %} {% endcomment %}
+            <div class="category__content">
             {% for category in categories %}
-            <a href="{% url "catalog:category" category.slug %}" class="tabs__btn-item" data-button="content-{{ forloop.counter|add:1 }}">{{ category.name }}</a>
-            {% endfor %}
-
+              <a href="{% url "catalog:category" category.slug %}" class="tabs__btn-item" data-button="content-{{ forloop.counter|add:1 }}">{{ category.name }}</a>
+              <p>{{ category.description }}</p>
+              {% endfor %}
+            </div>
+            {% comment %} {% endcache %} {% endcomment %}
             </div>
           </div>
       </div>
-      <p>Hello!</p>
     </section>
     <section class="blog">
       <div class="container">
         <div class="blog__items">
           <div class="blog__item">
-            <img class="blog__item-img" src="images/blog-1.jpg" alt="" width="580" height="260" />
+            <img class="blog__item-img" src="{% static "images/blog-1.jpg" %}" alt="">
             <h4 class="blog__item-title">An easier way to buy your next Bike</h4>
             <a href="#" class="blog__item-link">more</a>
           </div>
           <div class="blog__item">
-            <img class="blog__item-img" src="images/blog-2.jpg" alt="" width="580" height="260" />
+            <img class="blog__item-img" src="{% static "images/blog-2.jpg" %}" alt="">
             <h4 class="blog__item-title">A Guide to Road-Tripping With Pets</h4>
             <a href="#" class="blog__item-link">more</a>
           </div>

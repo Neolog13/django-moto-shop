@@ -9,45 +9,6 @@
 
 {% block content %}
 
-  {% comment %} <header class="header">
-    <div class="container">
-      <div class="header__inner">
-        <a href="#" class="logo"><img src="{% static 'images/logo.png' %}" alt="" class="logo__img" width="100px" height="60px" /></a>
-        <nav class="menu">
-          <button class="menu__btn">
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-          <ul class="menu__list">
-            <li class="menu__list-item">
-              <a href="{% url 'main:index' %}" class="menu__list-link">HOME</a>
-            </li>
-            <li class="menu__list-item">
-              <a href="#" class="menu__list-link">PRODUCTS</a>
-            </li>
-            <li class="menu__list-item">
-              <a href="#" class="menu__list-link">SERVICE</a>
-            </li>
-            <li class="menu__list-item">
-              <a href="{% url 'main:about' %}" class="menu__list-link">ABOUT US</a>
-            </li>
-            <li class="menu__list-item--active">
-              <a href="" class="menu__list-link">CONTACT US</a>
-            </li>
-          </ul>
-
-          <form role="search" action="{% url "catalog:search" %}" method="get">
-            <input type="search" name="q" placeholder="Search" arial-label="Search">
-            <button type="submit">Search</button>
-          </form>
-
-        </nav>
-      </div>
-    </div>
-  </header> {% endcomment %}
-
-
 <main class="main">
   <section class="choose">
     <div class="container">
@@ -61,25 +22,37 @@
       </div>
 
 
+      {% with first_product=products|first %}
+      {% if first_product %}
+        <h5>Motorcycles of the <strong>{{ first_product.category }}</strong> category</h5>
+      {% endif %}
+      {% endwith %}
 
+      
+      {% comment %} If no products found in this category {% endcomment %}
+      {% if message %}
+      <div class="alert alert-warning">
+        {{ message }}
+      </div>
+      {% endif %}
+      <div class="title__categoties">
 
+      </div>
+      {% comment %} Search {% endcomment %}
+        <form class="d-flex my-4" role="search" action="{% url "catalog:search" %}" method="get">
+          <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search">
+          <button class="btn btn-dark btn-outline-success text-white" type="submit">SEARCH</button>
+        </form>
 
-{% comment %} Фильтры {% endcomment %}
-      <div class="dropdown mb-2">
-        <button class="btn btn-secondary dropdown-toggle btn-dark" type="button" data-bs-toggle="dropdown"
+{% comment %} Filters {% endcomment %}
+      <div class="dropdown mb-3">
+        <button class="btn btn-outline-success text-white dropdown-toggle btn-dark" type="button" data-bs-toggle="dropdown"
             aria-expanded="false">
-            Фильтры
+            Filters
         </button>
 
         <form action="{% if request.GET.q %}{% url "catalog:search" %}{% else %}{% url "catalog:category" slug_url %}{% endif %}" method="get" class="dropdown-menu bg-dark" data-bs-theme="dark">
           
-            {% comment %} <div class="form-check text-white mx-3">
-                <input class="form-check-input" type="checkbox" name="on_sale" id="flexCheckDefault" value="on">
-                <input type="hidden" name="q" value="request.GET.q">
-                <label class="form-check-label" for="flexCheckDefault">
-                    Товары по акции
-                </label>
-            </div> {% endcomment %}
             <p class="text-white mx-3 mt-3">Сортировать:</p>
             <div class="form-check text-white mx-3">
                 <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault1" value="default" {% if not request.GET.order_by or request.GET.order_by == 'default' %}checked{% endif %}>
@@ -104,24 +77,23 @@
         </form>
     </div>
 
-{% comment %} Фильтры - конец  {% endcomment %}
-
-
-
     {% if request.GET.q %}
-    <h3>Результаты поиска по запросу {{ request.GET.q }}</h3>
+    <h3 class="mt-4">Результаты поиска по запросу {{ request.GET.q }}</h3>
+    <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">
     {% if not products %}
-      <h2>По запросу ничего не найдено</h2>
+      <h2 class="mt-4">По запросу ничего не найдено</h2>
     {% endif %}
     {% endif %}
 
+{% comment %} End filters {% endcomment %}
 
 
       <div class="categories__content">
         {% for product in products %}
             <div class="categories__content-item">
                 <div class="card-item">
-                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="item__img" width="280" height="172">
+                  <a href="{% url 'catalog:product' product.slug %}" class="item__link">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="item__img"></a>
                     <div class="item__content">
                         <h4 class="item__title">
                           {% autoescape off %}
@@ -132,6 +104,7 @@
                             {% endif %}
                           {% endautoescape %}
                         </h4>
+                        <p>Quatity in stock: {{ product.quantity }}</p>
                         <p class="item__text">
                           {% autoescape off %}
                             {% if product.bodyline %}
@@ -142,48 +115,57 @@
                           {% endautoescape %}
                         </p>
                         <p class="item__price">{{ product.price }}</p>
+                        
                     </div>
-                        <a href="{% url 'catalog:product' product.slug %}" class="item__link">see details</a>
-                        <a href="{% url "cart:cart_add" %}" class="btn btn-dark add-to-cart" data-product-id="{{ product.id }}">
-                          {% csrf_token %}
-                          <img class="mx-1" src="{% static "deps/icons/cart-plus.svg" %}" alt="Catalog Icon" width="32" height="32">
-                          </a>
+                    <div class="item__more">
+                      <a href="{% url 'catalog:product' product.slug %}" class="item__link">see details</a>
+                      {% if product.quantity < 1 %}
+                      <div class="item__warning alert alert-warning m-0">
+                        Sorry, this item is temporarily out of stock and cannot be ordered.
+                    </div>
+                      {% else %}
+
+
+
+
+
+
+                      <a href="{% url "cart:cart_add" %}" class="btn btn-dark btn-outline-success add-to-cart" data-product-id="{{ product.id }}">
+                        {% csrf_token %}
+                        <img class="mx-1" src="{% static "deps/icons/cart-plus.svg" %}" alt="Catalog Icon" width="32" height="32">
+                        </a>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
             {% endfor %}
           </div>
-          
           <!-- Pagination -->
-          {% if products %}
+          {% if products and paginator.num_pages > 1 %}
           <nav aria-label="Page navigation example">
-            <ul class="pagination" justity-content-center my-4>
+            <ul class="pagination justify-content-center">
               <div class="custom-shadow d-flex">
                 <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
-                  <a href="{% if page_obj.has_previous %}?{% change_params page=page_obj.previous_page_number %}
-                  {% comment %} {% url "catalog:category" slug_url products.previous_page_number %} {% endcomment %}
+                  <a class="page-link" href="{% if page_obj.has_previous %}?{% change_params page=page_obj.previous_page_number %}
                   {% else %}
                   #
-                  {% endif %}" class="page-link">Previous</a>
+                  {% endif %}">Previous</a>
                 </li>
-
-
-                        {% for page in page_obj.paginator.page_range %}
-              {% if page >= page_obj.number|add:-2 and page <= page_obj.number|add:2 %}
-              <li class="page-item {% if page_obj.number == page %} no-click {% endif %}">
-  <a href="?{% change_params page=page %}" class="page-link">{{ page }}</a>
+              {% comment %} no-click вместо active {% endcomment %}
+              {% for page in page_obj.paginator.page_range %}
+              {% if page >= page_obj.number|add:-2 and page <= page_obj.number|add:3 %}
+              <li class="page-item {% if page_obj.number == page %} active {% endif %}">
+              <a  class="page-link" href="?{% change_params page=page %}">{{ page }}</a>
               </li>
-{% endif %}
-{% endfor %}
-
-
+              {% endif %}
+              {% endfor %}
                 <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
-                  <a href="{% if products.has_next %}?{% change_params page=page_obj.next_page_number %}
-                  {% comment %} {% url "catalog:category" slug_url products.next_page_number %} {% endcomment %}
+                  <a class="page-link" href="{% if page_obj.has_next %}?{% change_params page=page_obj.next_page_number %}
                   {% else %}
                   #
-                  {% endif %}" class="page-link">Next</a>
+                  {% endif %}">Next</a>
                 </li>
-                </li>
+
               </div>
             </ul>
           </nav> 
@@ -194,71 +176,16 @@
   </section>
 </main>
 
-
-
-
-{% comment %} <main class="main">
-    <section class="choose">
-        <div class="container">
-        <h2 class="section-title">Choose your bike</h2>
-            <div class="tabs">
-                <div class="tabs__btn">
-                <!-- Categories -->
-                {% for category in categories %}
-                <a href="{% url "catalog:category" category.slug %}" class="tabs__btn-item">{{ category.name }}</a>
-                {% endfor %}
-                </div>
-
-
-                <div class="tabs__content-5">
-                    {% for product in products %}
-                        <div class="tabs__content-item-5">
-                            <div class="card-5">
-                                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="card__img-5" width="280" height="172">
-                                <div class="card__content-5">
-                                    <h4 class="card__title-5">{{ product.name }}</h4>
-                                    <p class="card__text-5">{{ product.description }}</p>
-                                    <p class="card__price-5">{{ product.price }}</p>
-                                </div>
-                                    <a href="{% url 'catalog:product' product.slug %}" class="card__link-5">see details</a>
-                            </div>
-                    {% endfor %}
-                        </div>
-                    </div>  {% endcomment %}
-                    {% comment %} <div class="tabs__content">
-                    {% for product in products %}
-                        <div class="tabs__content-item">
-                            <div class="card">
-                                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="card__img">
-                                <div class="card__content">
-                                    <h4 class="card__title">{{ product.name }}</h4>
-                                    <p class="card__text">{{ product.description }}</p>
-                                    <p class="card__price">{{ product.price }}</p>
-                                </div>
-                                    <a href="{% url 'catalog:product' product.slug %}" class="card__link">see details</a>
-                            </div>
-                    {% endfor %}
-                        </div>
-                    </div> {% endcomment %}
-            {% comment %} </div>
-        </div>
-    </section> {% endcomment %}
-
-
-
-
-
-
     <section class="blog">
       <div class="container">
         <div class="blog__items">
           <div class="blog__item">
-            <img class="blog__item-img" src="images/blog-1.jpg" alt="" width="580" height="260" />
+            <img class="blog__item-img" src="{% static 'images/blog-1.jpg' %}" alt="">
             <h4 class="blog__item-title">An easier way to buy your next Bike</h4>
             <a href="#" class="blog__item-link">more</a>
           </div>
           <div class="blog__item">
-            <img class="blog__item-img" src="images/blog-2.jpg" alt="" width="580" height="260" />
+            <img class="blog__item-img" src="{% static 'images/blog-2.jpg/' %}" alt="">
             <h4 class="blog__item-title">A Guide to Road-Tripping With Pets</h4>
             <a href="#" class="blog__item-link">more</a>
           </div>

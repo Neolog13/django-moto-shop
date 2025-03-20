@@ -8,7 +8,7 @@ class CartQueryset(models.QuerySet):
     
 
     def total_price(self):
-        return sum(cart.products_price for cart in self)
+        return sum(cart.products_price() for cart in self)
     
 
     def total_quantity(self):
@@ -33,8 +33,8 @@ class Cart(models.Model):
     objects = CartQueryset().as_manager()
 
 
-    def product_price(self):
-        return round(self.product.price * self.quantity, 2)
+    def products_price(self):
+        return round(self.product.sell_price() * self.quantity, 2)
 
 
     def __str__(self):

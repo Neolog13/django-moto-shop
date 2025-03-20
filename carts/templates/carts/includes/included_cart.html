@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load humanize %}
 
 
 <div class="card mb-3 text-bg-light shadow-lg">
@@ -15,8 +15,7 @@
                             <span class="input-group-btn">
                                 <button type="button" class="btn btn-dark btn-sm decrement"
                                     data-cart-id="{{ cart.id }}"
-                                    data-cart-change-url="{% url "cart:cart_change" %}"
-                                    readonly>
+                                    data-cart-change-url="{% url "cart:cart_change" %}">
                                     {% csrf_token %}
                                     -</button>
                             </span>
@@ -30,10 +29,11 @@
                             </span>
                         </div>
                     </div>
-                    <div class="col p-0">
-                        <p>x {{ cart.product.sell_price }} = </p>
+                    <div class="col p-0 m-0">
+                        <p>x {{ cart.product.sell_price|intcomma }}</p>
                     </div>
-                    <div class="col p-0"><strong> {{ cart.products_price }} $</strong></div>
+                    <div class="col p-0">=</div>
+                    <div class="col p-0"><strong> {{ cart.products_price|intcomma }} $</strong></div>
                     <div class="col p-0">
                         <a href="{% url "cart:cart_remove" %}" class="remove-from-cart"
                         data-cart-id="{{ cart.id }}">
@@ -49,8 +49,8 @@
 </div>
 <div class="card mb-3 shadow-lg">
     <div class="card-footer">
-        <p class="float-left">Total <strong>{{ carts.total_quantity }}</strong> good(s) worth</p>
-        <h4 class="float-left"><strong>{{ carts.product_price }} $</strong></h4>
+        <p class="float-left">Total <strong>{{ carts.total_quantity }}</strong> product(s) cost</p>
+        <h4 class="float-left"><strong>{{ carts.total_price|intcomma }} $</strong></h4>
     </div>
 </div>
 {% if carts and not order %}

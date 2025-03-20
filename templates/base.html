@@ -4,34 +4,38 @@
 <html lang="en">
 
 <head>
+    {% comment %} Meta tags {% endcomment %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}</title>
+
+    {% comment %} External font links from Google Fonts {% endcomment %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
-        rel="stylesheet">
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+    rel="stylesheet">
+
+    {% comment %} External stylesheets (Swiper for carousels) {% endcomment %}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-
-
+    
+    {% comment %} Bootstrap and custom styles {% endcomment %}
     <link rel="stylesheet" href="{% static "deps/css/bootstrap/bootstrap.min.css" %}">
     <link rel="stylesheet" href="{% static "deps/css/my_css.css" %}">
+
+    {% comment %} Icons and Web App Manifest {% endcomment %}
     <link rel="apple-touch-icon" sizes="180x180" href="{% static "deps/favicon/apple-touch-icon.png" %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static "deps/favicon/favicon-32x32.png" %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static "deps/favicon/favicon-16x16.png" %}">
     <link rel="manifest" href="{% static "deps/favicon/site.webmanifest" %}">
-
-
+    
+    {% comment %} Main custom stylesheet {% endcomment %}
     <link rel="stylesheet" href="{% static "style.css" %}">
 
-
+    <title>{{ title }}</title>
 </head>
-
 <body>
     <div class="wrapper">
-
-{% comment %} Общий хедер для всех {% endcomment %}
+        {% comment %} Сommon header for all {% endcomment %}
         <header class="header {% block first_page_class %}{% endblock %}">
             <div class="container">
               <div class="header__inner">
@@ -44,48 +48,45 @@
                   </button>
                   <ul class="menu__list">
                     <li class="menu__list-item">
-                      <a href="{% url 'main:index' %}" class="menu__list-link">HOME</a>
+                      <a href="{% url 'main:index' %}" class="menu__list-link {% if request.path == '/' %}menu__list-link--active{% endif %}">HOME</a>
                     </li>
+
                     <li class="menu__list-item">
-                      <a href="{% url "catalog:index" %}" class="menu__list-link">PRODUCTS</a>
+                      <a href="{% url "catalog:index" %}" class="menu__list-link {% if is_catalog_active %}menu__list-link--active{% endif %}">PRODUCTS</a>
                     </li>
+
                     <li class="menu__list-item">
-                      <a href="#" class="menu__list-link">SERVICE</a>
+                      <a href="{% url "main:contact" %}" class="menu__list-link {% if request.path == '/contact/' %}menu__list-link--active{% endif %}">CONTACT US</a>
                     </li>
-                    <li class="menu__list-item--active">
-                      <a href="" class="menu__list-link">CONTACT US</a>
-                    </li>
+
                     {% if not user.is_authenticated %}
-                    <li class="menu__list-item--active">
-                      <a href="{% url "user:login" %}" class="menu__list-link">SIGN IN</a>
+                    <li class="menu__list-item">
+                      <a href="{% url "user:login" %}" class="menu__list-link {% if request.path == '/user/login/' %}menu__list-link--active{% endif %}">SIGN IN</a>
                     </li>
                     {% else %}
-                    <li class="menu__list-item--active">
-                      <a href="{% url "user:profile" %}" class="menu__list-link">PROFILE</a>
+                    <li class="menu__list">
+                      <a href="{% url "user:profile" %}" class="menu__list-link {% if request.path == '/user/profile/' %}menu__list-link--active{% endif %}">PROFILE</a>
                     </li>
-                    <li class="menu__list-item--active">
-                      <a href="{% url "user:users_cart" %}" class="menu__list-link">CART</a>
-                    </li>
-                    {% comment %} {% include "carts/includes/included_cart.html" %} {% endcomment %}
-                    <li class="menu__list-item--active">
-                      <a href="{% url "user:logout" %}" class="menu__list-link">ENTER FOR STAFF</a>
-                    </li>
-                    {% comment %} <li class="menu__list-item--active">
-                      <a href="{% url "user:logout" %}" class="menu__list-link">LOGOUT</a>
-                    </li> {% endcomment %}
 
+                    <li class="menu__list-item">
+                      <a href="{% url "user:users_cart" %}" class="menu__list-link {% if request.path == '/user/users-cart/' %}menu__list-link--active{% endif %}">CART</a>
+                    </li>
 
-                    <li class="menu__list-item--active">
+                    {% if user.is_staff %}
+                    <li class="menu__list-item">
+                      <a href="{% url "admin:index" %}" class="menu__list-link">ENTER FOR STAFF</a>
+                    </li>
+                    {% endif %}
+
+                    <li class="menu__list-item">
                       <form action="{% url "user:logout" %}" method="post">
                         {% csrf_token %}
-                        <button style="background-color: transparent; border: none; color: white;"; type="submit" class="menu_list-link">LOGOUT</button>
+                        <button class="menu__list-link" style="background-color: transparent; border: none; color: white;" type="submit" class="menu_list-link">LOGOUT</button>
                       </form>
                     </li>
-
-
-
                     {% endif %}
-                  <li>{% block modal_cart %}
+                  <li>
+                    {% block modal_cart %}
                     {% include "includes/cart_button.html" %}
                     {% endblock  %}
                   </li>
@@ -99,12 +100,18 @@
 {% comment %} {% block modal_cart %}{% endblock %} {% endcomment %}
 {% comment %} Закончилась разметка модального окна {% endcomment %}
 
+
+
+                                  {% comment %} Форма для запроса {% endcomment %}
+
+
 {% include "includes/notifications.html" %}
 {% block content %}{% endblock  %}
 
 
         <footer class="footer">
             <div class="container">
+
                 <nav class="footer__menu">
                     <ul class="footer__menu-list">
                         <li class="footer__menu-item">
@@ -152,29 +159,29 @@
                 </ul>
                 <div class="footer__copy">
                     <p class="footer__copy-text">
-                        For questions about the TrueBike Buying Service please sell message to neologfly@gmail.com. <br>Изображение <a href="https://pixabay.com/ru/users/monoar_cgi_artist-2240009/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=6720610">Monoar Rahman Rony</a> с сайта <a href="https://pixabay.com/ru//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=6720610">Pixabay</a>
+                        For questions about the TrueBike Buying Service please sell message to neologfly@gmail.com. <br>Images <a href="https://pixabay.com/ru/users/monoar_cgi_artist-2240009/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=6720610">Monoar Rahman Rony</a> from the site <a href="https://pixabay.com/ru//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=6720610">Pixabay</a>
                     </p>
                 </div>
                 <nav class="copy__nav">
                     <ul class="copy__nav-list">
                         <li class="copy__nav-item"><a href="#" class="copy__nav-link">Terms of Service</a></li>
                         <li class="copy__nav-item"><a href="#" class="copy__nav-link">Privacy Policy</a></li>
-                        <li class="copy__nav-item"><a href="#" class="copy__nav-link">Do Not Sell My Personal
-                                Information</a></li>
                     </ul>
                 </nav>
             </div>
         </footer>
     </div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
-    <script src="{% static "deps/js/jquery/jquery-3.7.0.min.js" %}"></script>
+    {% comment %} <script src="{% static "deps/js/jquery/jquery-3.7.0.min.js" %}"></script> {% endcomment %}
     <script src="{% static "deps/js/jquery-ajax.js" %}"></script>
 
-    <script src="{% static "deps/js/jquery-events.js" %}"></script>
+    {% comment %} <script src="{% static "deps/js/jquery-events.js" %}"></script> {% endcomment %}
     <script src="{% static "deps/js/bootstrap/bootstrap.bundle.min.js" %}"></script>
     
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="{% static "js/main.js" %}"></script>
+    
+    <script src="{% static "/deps/js/main.js" %}"></script>
 </body>
 </html>

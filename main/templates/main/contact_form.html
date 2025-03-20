@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="contacts">
+    <div class="container">
+        <p class="contacts__text">Feel free to contact us with questions, potecial partnerships or media inquiries</p>
+        <form action="{% url "main:index" %}" class="form" method="post" >
+            {% csrf_token %}
+                <div class="form__group">
+                    {{ form.name.errors }}
+                    <input type="text" class="form__input" placeholder="Name" value="{% if form.first_name.value %}{{ form.first_name.value }}{% endif %}" name="name" required>
+                </div>
+
+                <div class="form__group">
+                {{ form.email.errors }}
+                <input type="email" class="form__input" placeholder="E-mail" value="{% if form.email.value %}{{ form.email.value }}{% endif %}" name="email" value="{{ form.email.value }}" required>
+                </div>
+
+                <div class="textarea_container">
+                {{ form.message.errors }}
+                <textarea class="form__textarea" placeholder="Your text" value="{% if form.message.value %}{{ form.message.value }}{% endif %}" name="message" value="{{ form.message.value }}" required></textarea>
+                </div>
+
+                <button class="form__btn" type="submit">SUBMIT</button>
+
+        </form>
+    </div>
+</section>
+{% endblock%}
