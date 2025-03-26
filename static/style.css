@@ -356,6 +356,10 @@ body {
 .card {
     text-align: center;
 }
+.card__img_product {
+    max-width: 50%;
+    margin: auto;
+}
 .card__content{
     padding: 0 5px;
     border: 1px solid #0066FF;

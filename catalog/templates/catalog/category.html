@@ -53,27 +53,27 @@
 
         <form action="{% if request.GET.q %}{% url "catalog:search" %}{% else %}{% url "catalog:category" slug_url %}{% endif %}" method="get" class="dropdown-menu bg-dark" data-bs-theme="dark">
           
-            <p class="text-white mx-3 mt-3">Сортировать:</p>
+            <p class="text-white mx-3 mt-3">Sort by:</p>
             <div class="form-check text-white mx-3">
                 <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault1" value="default" {% if not request.GET.order_by or request.GET.order_by == 'default' %}checked{% endif %}>
                 <label class="form-check-label" for="flexRadioDefault1">
-                    По умолчанию
+                    Default
                 </label>
             </div>
             <div class="form-check text-white mx-3">
                 <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault2" value="price"{% if request.GET.order_by == 'price' %}checked{% endif %}>
                 <label class="form-check-label" for="flexRadioDefault2">
-                    От дешевых к дорогим
+                    From low to high price
                 </label>
             </div>
             <div class="form-check text-white mx-3">
                 <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault3" value="-price"
                 {% if request.GET.order_by == '-price' %}checked{% endif %}>
                 <label class="form-check-label" for="flexRadioDefault3">
-                    От дорогих к дешевым
+                    From high to low price
                 </label>
             </div>
-            <button type="submit" class="btn btn-primary mx-3 mt-3">Применить</button>
+            <button type="submit" class="btn btn-primary mx-3 mt-3">Apply</button>
         </form>
     </div>
 
@@ -84,8 +84,32 @@
       <h2 class="mt-4">По запросу ничего не найдено</h2>
     {% endif %}
     {% endif %}
-
 {% comment %} End filters {% endcomment %}
+
+
+                        {% comment %} filter by category {% endcomment %}
+
+  <div class="dropdown mb-3">
+    <button class="btn btn-outline-success text-white dropdown-toggle btn-dark" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Filters by category
+    </button>
+    <form action="{% url "catalog:category" slug_url %}" method="get" class="dropdown-menu bg-dark" data-bs-theme="dark">
+      <p class="text-white mx-3 mt-3">Filter by category</p>
+    {% comment %} {% for category in categories %} {% endcomment %}
+    {% for category in categories %}
+      <div class="form-chek text-white mx-3">
+          <a href="{% url "catalog:category" category.slug %}" class="tabs__btn-item" data-button="content={{ forloop.counter|add:1}}">{{ category.name }}</a>
+        </div>
+    {% endfor %}
+      </form>
+    </div>
+
+
+
+
+
+
+
 
 
       <div class="categories__content">

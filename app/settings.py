@@ -106,6 +106,9 @@ CACHES = {
     }
 }
 
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.github.GithubOAuth2',
+)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -182,3 +185,7 @@ LOGIN_REDIRECT_URL = '/'
 #         },
 #     },
 # }
+
+
+SOCIAL_AUTH_GITHUB_KEY = 'Ov23liTV568ysLorOG4z'
+SOCIAL_AUTH_GITHUB_SECRET = 'aa596ba5f37e109daabe5bddb7da6290c3554b1b'

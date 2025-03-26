@@ -9,6 +9,7 @@ from catalog.utils import q_search
 #Displays a list of categories with a custom title
 class CategoriesView(ListView):
     queryset = Categories.objects.all()
+
     template_name = "catalog/catalog.html"
     context_object_name = "categories"
 
@@ -30,34 +31,20 @@ class CatalogView(ListView):
 
 
     def get_queryset(self):
-        #Уточнить!!!
-        # category_slug = self.kwargs.get("category_slug")
         category_slug = self.kwargs.get(self.slug_url_kwarg)
-
         order_by = self.request.GET.get("order_by")
         query = self.request.GET.get("q")
-        
-
-        if category_slug:
+        if not category_slug:
+            products = super().get_queryset()
+        else:
             products = super().get_queryset().filter(category__slug=category_slug)
 
-        elif query:
+        if query:
             products = q_search(query)
 
         if order_by and order_by != "default":
             products = products.order_by(order_by)
 
-
-        # products = super().get_queryset().filter(category__slug=category_slug)
-
-        # if not products.exists():
-        #     raise Http404("No products found for this category")
-
-        # if query:
-        #     products = q_search(query)
-
-        # if order_by and order_by != "default":
-        #     products = products.order_by(order_by)
         return products
 
 
