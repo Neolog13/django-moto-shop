@@ -77,11 +77,13 @@
                       <a href="{% url "admin:index" %}" class="menu__list-link">ENTER FOR STAFF</a>
                     </li>
                     {% endif %}
-
                     <li class="menu__list-item">
+                      <form action="{% url "user:profile" %}" method="get">
+                      <button class="menu__list-link" style="background-color: transparent; border: none; color: white;" type="submit" class="menu_list-link">{{ user.username | truncatechars:5 }} </button>
+                      </form>
                       <form action="{% url "user:logout" %}" method="post">
                         {% csrf_token %}
-                        <button class="menu__list-link" style="background-color: transparent; border: none; color: white;" type="submit" class="menu_list-link">LOGOUT</button>
+                        <button class="menu__list-link" style="background-color: transparent; border: none; color: white;" type="submit" class="menu_list-link"> | LOGOUT</button>
                       </form>
                     </li>
                     {% endif %}

@@ -58,7 +58,7 @@ body {
 }
 .menu__list {
     display: flex;
-    gap: 35px;
+    gap: 20px;
 }
 .menu__list-link {
     color: #fff;
@@ -68,7 +68,12 @@ body {
 .menu__list-link--active {
     color: #e8d9be;
 }
-
+.menu__list-item {
+    display: flex;
+    align-items: baseline;
+    gap: 3px;
+    white-space: nowrap;
+}
 .footer {
     background-color: #151515;
     padding: 50px 0 32px;
@@ -167,7 +172,7 @@ body {
     background-color: #fff;
 }
 .why-we {
-    padding: 150px 0;
+    padding: 90px 0;
 
 }
 .why-we__list {
@@ -218,6 +223,7 @@ body {
 .important__list {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    padding-left: 0;
 }
 .important__item-img {
     margin-bottom: 20px;
@@ -423,7 +429,13 @@ body {
 .pagination {
     margin-top: 50px;
 }
-
+.change_pass_return {
+    text-decoration: underline;
+}
+.change_pass_return:hover {
+    cursor: pointer;
+    color: blue;
+}
 /* adaptive------------------------------------------------- */
 .menu__btn {
     width: 30px;
@@ -492,7 +504,7 @@ body {
     }
 }
 /* 860 */
-@media (max-width: 920px) {
+@media (max-width: 990px) {
     .menu__btn {
         display: flex;
         z-index: 5;
@@ -548,7 +560,7 @@ body {
     }
     .top__link {
         padding: 16px;
-        min-width: 360px;
+        max-width: 360px;
         font-size: 28px;
     }
     .swiper-pagination-bullet {
@@ -563,7 +575,7 @@ body {
     .footer__menu {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 40px;
+        gap: 20px;
     }
 }
 @media (max-width: 650px) {
@@ -595,8 +607,8 @@ body {
         font-size: 60px;
     }
     .top__link {
-        max-width: 310px;
-        font-size: 24px;
+        max-width: 300px;
+        font-size: 18px;
     }
     .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet {
         margin: 0 10px;
