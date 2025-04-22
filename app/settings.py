@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+from django.conf.global_settings import EMAIL_BACKEND, EMAIL_HOST_USER
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +28,7 @@ SECRET_KEY = 'django-insecure-)u96=@)m24s&3x2r7k!)=gj9nli(xkw25s%@z5d^@+d987^%2z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -42,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
 
     "debug_toolbar",
+    "social_django",
 
     
     'main',
@@ -107,9 +110,10 @@ CACHES = {
 }
 
 AUTHENTICATION_BACKENDS = (
+    'social_core.backends.github.GithubOAuth2',
     'django.contrib.auth.backends.ModelBackend',
     'users.authentication.EmailAuthBackend',
-    'social_core.backends.github.GithubOAuth2',
+
 )
 
 # Password validation
@@ -191,3 +195,19 @@ LOGIN_REDIRECT_URL = '/'
 
 SOCIAL_AUTH_GITHUB_KEY = 'Ov23liTV568ysLorOG4z'
 SOCIAL_AUTH_GITHUB_SECRET = 'aa596ba5f37e109daabe5bddb7da6290c3554b1b'
+
+
+SOCIAL_AUTH_JSONFIELD_ENABLE = True
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+
+EMAIL_HOST = "smtp.yandex.ru"
+EMAIL_PORT = "456"
+EMAIL_HOST_USER = "neoloen@yandex.ru"
+EMAIL_HOST_PASSWORD = "jshpbrhckbjsmksj"
+EMAIL_USE_SSL = True
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER
+EMAIL_ADMIN = EMAIL_HOST_USER
