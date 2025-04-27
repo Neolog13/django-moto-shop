@@ -105,10 +105,19 @@ DATABASES = {
 
 CACHES = {
     "default": {
-        "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
-        "LOCATION": BASE_DIR / "cache",
+        "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+    #     "BACKEND": "django.core.cache.backends.redis.RedisCache",
+    #     "LOCATION": "redis://127.0.0.1:6379",
     }
 }
+
+
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
+#         "LOCATION": BASE_DIR / "cache",
+#     }
+# }
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.github.GithubOAuth2',
