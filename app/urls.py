@@ -30,7 +30,9 @@ urlpatterns = [
     path("user/", include("users.urls", namespace="user")),
     path("cart/", include("carts.urls", namespace="cart")),
     path("orders/", include("orders.urls", namespace="orders")),
-    path('social-auth/', include('social_django.urls', namespace='social')),
+    path("social-auth/", include("social_django.urls", namespace='social')),
+    path("api/v1/", include("api_v1.urls", namespace="api_v1")),
+    path("api/v1/drf-auth/", include('rest_framework.urls', namespace='rest_framework')),
 ]
 
 
