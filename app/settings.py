@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 from django.conf.global_settings import EMAIL_BACKEND, EMAIL_HOST_USER
@@ -46,14 +47,18 @@ INSTALLED_APPS = [
 
     "debug_toolbar",
     "social_django",
-
     
     'main',
     'catalog',
     'users',
     'carts',
     'orders',
+
+    'django.contrib.sites',
+    'django.contrib.sitemaps'
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -103,13 +108,30 @@ DATABASES = {
 }
 
 
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.dummy.DummyCache",
-    #     "BACKEND": "django.core.cache.backends.redis.RedisCache",
-    #     "LOCATION": "redis://127.0.0.1:6379",
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+#     #     "BACKEND": "django.core.cache.backends.redis.RedisCache",
+#     #     "LOCATION": "redis://127.0.0.1:6379",
+#     }
+# }
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME', 'motoapp'),
+        'USER': os.getenv('DB_USER', 'motoapp'),
+        'PASSWORD': os.getenv('DB_PASSWORD', '1234'),
+        'HOST': os.getenv('DB_HOST', 'localhost'),
+        'PORT': os.getenv('DB_PORT', '5432'),
     }
 }
+
+
+
+
+
 
 
 # CACHES = {
@@ -120,10 +142,9 @@ CACHES = {
 # }
 
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.github.GithubOAuth2',
+    # 'social_core.backends.github.GithubOAuth2',
     'django.contrib.auth.backends.ModelBackend',
-    'users.authentication.EmailAuthBackend',
-
+    # 'users.authentication.EmailAuthBackend',
 )
 
 # Password validation
@@ -161,6 +182,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, STATIC_URL)
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static'

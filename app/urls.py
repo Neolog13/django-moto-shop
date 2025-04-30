@@ -22,6 +22,14 @@ from django.conf.urls.static import static
 from debug_toolbar.toolbar import debug_toolbar_urls
 from app import settings
 
+from main.sitemaps import MotoSitemap, CategoryMotoSitemap 
+from django.contrib.sitemaps.views import sitemap
+
+
+sitemaps = {
+    'moto': MotoSitemap,
+    'cats': CategoryMotoSitemap,
+}
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -33,6 +41,7 @@ urlpatterns = [
     path("social-auth/", include("social_django.urls", namespace='social')),
     path("api/v1/", include("api_v1.urls", namespace="api_v1")),
     path("api/v1/drf-auth/", include('rest_framework.urls', namespace='rest_framework')),
+    path("sitemap.xml/", sitemap, {'sitemaps': sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
 ]
 
 
