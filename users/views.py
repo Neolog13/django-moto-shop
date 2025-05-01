@@ -1,25 +1,25 @@
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.views import LoginView, PasswordChangeView
 from django.contrib import auth, messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.cache import cache
+from django.contrib.auth.views import LoginView, PasswordChangeView
 from django.db.models import Prefetch
 from django.http import HttpResponseRedirect
-from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, TemplateView, UpdateView
 
 from carts.models import Cart
 from common.mixins import CacheMixin
 from orders.models import Order, OrderItem
-from users.forms import ProfileForm, UserLoginForm, UserPasswordChangeForm, UserRegistrationForm
-
+from users.forms import (
+    ProfileForm,
+    UserLoginForm,
+    UserPasswordChangeForm,
+    UserRegistrationForm
+)
 
 
 class UserLoginView(LoginView):
     template_name = 'users/login.html'
     form_class = UserLoginForm
-    # success_url = reverse_lazy('main:index')
 
     def get_success_url(self):
         redirect_page = self.request.POST.get('next', None)

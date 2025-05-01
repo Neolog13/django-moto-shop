@@ -6,8 +6,8 @@
 {% include "includes/cart_button.html" %}
 {% endblock  %}
 
-
 {% block content %}
+
 
 <main class="main">
   <section class="choose">
@@ -16,11 +16,13 @@
       <div class="categories">
         <div class="categories_btn">
           {% for category in categories %}
+
+          <!-- Loop through categories and generate links. 
+            The 'data-button' attribute dynamically adds a counter to the 'content' value for each category. -->
           <a href="{% url "catalog:category" category.slug %}" class="tabs__btn-item" data-button="content={{ forloop.counter|add:1}}">{{ category.name }}</a>
           {% endfor %}
         </div>
       </div>
-
 
       {% with first_product=products|first %}
       {% if first_product %}
@@ -28,8 +30,7 @@
       {% endif %}
       {% endwith %}
 
-      
-      {% comment %} If no products found in this category {% endcomment %}
+      <!-- If no products found in this category -->
       {% if message %}
       <div class="alert alert-warning">
         {{ message }}
@@ -38,13 +39,14 @@
       <div class="title__categoties">
 
       </div>
-      {% comment %} Search {% endcomment %}
+
+      <!-- Search -->
         <form class="d-flex my-4" role="search" action="{% url "catalog:search" %}" method="get">
           <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search">
           <button class="btn btn-dark btn-outline-success text-white" type="submit">SEARCH</button>
         </form>
 
-{% comment %} Filters {% endcomment %}
+      <!-- Filters -->
       <div class="dropdown mb-3">
         <button class="btn btn-outline-success text-white dropdown-toggle btn-dark" type="button" data-bs-toggle="dropdown"
             aria-expanded="false">
@@ -78,45 +80,33 @@
     </div>
 
     {% if request.GET.q %}
-    <h3 class="mt-4">Результаты поиска по запросу {{ request.GET.q }}</h3>
+    <h3 class="mt-4"> {{ request.GET.q }}</h3>
     <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">
     {% if not products %}
-      <h2 class="mt-4">По запросу ничего не найдено</h2>
+      <h2 class="mt-4">"No results found for the query"</h2>
     {% endif %}
     {% endif %}
-{% comment %} End filters {% endcomment %}
 
-
-                        {% comment %} filter by category {% endcomment %}
-
+  <!-- Filter by category -->
   <div class="dropdown mb-3">
     <button class="btn btn-outline-success text-white dropdown-toggle btn-dark" type="button" data-bs-toggle="dropdown" aria-expanded="false">
       Filters by category
     </button>
     <form action="{% url "catalog:category" slug_url %}" method="get" class="dropdown-menu bg-dark" data-bs-theme="dark">
       <p class="text-white mx-3 mt-3">Filter by category</p>
-    {% comment %} {% for category in categories %} {% endcomment %}
     {% for category in categories %}
-      <div class="form-chek text-white mx-3">
+      <div class="form-check text-white mx-3">
           <a href="{% url "catalog:category" category.slug %}" class="tabs__btn-item" data-button="content={{ forloop.counter|add:1}}">{{ category.name }}</a>
         </div>
     {% endfor %}
       </form>
     </div>
 
-
-
-
-
-
-
-
-
       <div class="categories__content">
         {% for product in products %}
             <div class="categories__content-item">
                 <div class="card-item">
-                  <a href="{% url 'catalog:product' product.slug %}" class="item__link">
+                  <a href="{% url 'catalog:product' product.slug %}" class="item__link" aria-label="View details for {{ product.name }}">
                     <img src="{{ product.image.url }}" alt="{{ product.name }}" class="item__img"></a>
                     <div class="item__content">
                         <h4 class="item__title">
@@ -131,6 +121,8 @@
                         <p>Quatity in stock: {{ product.quantity }}</p>
                         <p class="item__text">
                           {% autoescape off %}
+                          
+                          <!-- Use autoescape off to display HTML content, such as product description, without escaping HTML tags -->
                             {% if product.bodyline %}
                             {{ product.bodyline|truncatechars:100 }}
                             {% else %}
@@ -148,12 +140,6 @@
                         Sorry, this item is temporarily out of stock and cannot be ordered.
                     </div>
                       {% else %}
-
-
-
-
-
-
                       <a href="{% url "cart:cart_add" %}" class="btn btn-dark btn-outline-success add-to-cart" data-product-id="{{ product.id }}">
                         {% csrf_token %}
                         <img class="mx-1" src="{% static "deps/icons/cart-plus.svg" %}" alt="Catalog Icon" width="32" height="32">
@@ -164,7 +150,8 @@
             </div>
             {% endfor %}
           </div>
-          <!-- Pagination -->
+
+          <!-- Pagination logic -->
           {% if products and paginator.num_pages > 1 %}
           <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
@@ -175,7 +162,6 @@
                   #
                   {% endif %}">Previous</a>
                 </li>
-              {% comment %} no-click вместо active {% endcomment %}
               {% for page in page_obj.paginator.page_range %}
               {% if page >= page_obj.number|add:-2 and page <= page_obj.number|add:3 %}
               <li class="page-item {% if page_obj.number == page %} active {% endif %}">
@@ -194,12 +180,9 @@
             </ul>
           </nav> 
           {% endif %}
-
-
     </div>
   </section>
 </main>
-
     <section class="blog">
       <div class="container">
         <div class="blog__items">
@@ -209,7 +192,7 @@
             <a href="#" class="blog__item-link">more</a>
           </div>
           <div class="blog__item">
-            <img class="blog__item-img" src="{% static 'images/blog-2.jpg/' %}" alt="">
+            <img class="blog__item-img" src="{% static 'images/blog-2.jpg' %}" alt="">
             <h4 class="blog__item-title">A Guide to Road-Tripping With Pets</h4>
             <a href="#" class="blog__item-link">more</a>
           </div>

@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from catalog.models import Products
+from catalog.models import Product
 
 
 
@@ -12,7 +12,7 @@ class GetPagesTestCase(TestCase):
         "initialization before executing the first test"
 
     def test_data_catalog(self):
-        products = Products.objects.all()
+        products = Product.objects.all()
 
         path = reverse('catalog:index')
         response = self.client.get(path)
@@ -24,11 +24,11 @@ class GetPagesTestCase(TestCase):
         page = 2
         paginate_by = 3
         response = self.client.get(path + f'?page={page}')
-        products = Products.objects.all()
+        products = Product.objects.all()
         self.assertQuerySetEqual(list(response.context_data['products']), products[(page - 1) * paginate_by:page * paginate_by])
 
     def test_content_product(self):
-        product = Products.objects.get(pk=1)
+        product = Product.objects.get(pk=1)
         path = reverse('catalog:product', args=[product.slug])
         response = self.client.get(path)
         self.assertEqual(product.description, response.context_data['product'].description)

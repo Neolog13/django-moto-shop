@@ -1,6 +1,6 @@
 from django.contrib.sitemaps import Sitemap
 
-from catalog.models import Products, Categories
+from catalog.models import Product, Category
 
 
 class MotoSitemap(Sitemap):
@@ -8,7 +8,7 @@ class MotoSitemap(Sitemap):
     priority = 0.9
 
     def items(self):
-        return Products.objects.all()
+        return Product.objects.all()
 
 
 class CategoryMotoSitemap(Sitemap):
@@ -16,5 +16,5 @@ class CategoryMotoSitemap(Sitemap):
     priority = 0.9
 
     def items(self):
-        return Categories.objects.all()
+        return Category.objects.all()
     

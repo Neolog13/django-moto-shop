@@ -5,35 +5,42 @@ from django.contrib.postgres.search import (
     SearchHeadline,
 )
 
-from catalog.models import Products
+from catalog.models import Product
 
 
 def q_search(query):
+    """
+    Full-text PostgreSQL search for products by name and description,
+    ordered by relevance and highlighted in results.
 
-    vector = SearchVector("name", "description")
-    query = SearchQuery(query)
+    Args:
+        query (str): The search phrase provided by the user.
 
-    result = (
-        Products.objects.annotate(rank=SearchRank(vector, query))
+    Returns:
+        QuerySet: Filtered and annotated list of products.
+    """
+
+    search_vector = SearchVector("name", "description")
+    search_query = SearchQuery(query)
+
+    products = (
+        Product.objects.annotate(rank=SearchRank(search_vector, search_query))
         .filter(rank__gt=0)
         .order_by("-rank")
     )
 
-    result = result.annotate(
+    products = products.annotate(
         headline=SearchHeadline(
-            "name",
-            query,
+            "name", search_query,
             start_sel='<span style="background-color: yellow;">',
             stop_sel="</span>",
         )
     )
-    result = result.annotate(
+    products = products.annotate(
         bodyline=SearchHeadline(
-            "description",
-            query,
+            "description", search_query,
             start_sel='<span style="background-color: yellow;">',
             stop_sel="</span>",
         )
     )
-    return result
-
+    return products

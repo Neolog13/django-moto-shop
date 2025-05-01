@@ -10,11 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-import os
 from pathlib import Path
-
+import environ
 from django.conf.global_settings import EMAIL_BACKEND, EMAIL_HOST_USER
 
+
+# Load environment variables from .env file (for secrets and environment-specific settings)
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,10 +27,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-)u96=@)m24s&3x2r7k!)=gj9nli(xkw25s%@z5d^@+d987^%2z'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG', default=False)
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
@@ -35,6 +38,7 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 # Application definition
 
 INSTALLED_APPS = [
+#    'django_prometheus',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,7 +51,7 @@ INSTALLED_APPS = [
 
     "debug_toolbar",
     "social_django",
-    
+
     'main',
     'catalog',
     'users',
@@ -61,6 +65,8 @@ INSTALLED_APPS = [
 SITE_ID = 1
 
 MIDDLEWARE = [
+    #prometheus
+#    'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -70,6 +76,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     "debug_toolbar.middleware.DebugToolbarMiddleware",
+    #prometheus
+#    'django_prometheus.middleware.PrometheusAfterMiddleware',
 ]
 
 ROOT_URLCONF = 'app.urls'
@@ -95,18 +103,18 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
+# PostgreSQL database configuration using environment variables
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'motoapp',
-        'USER': 'motoapp',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'HOST': env('DB_HOST'),
+        'PORT': env('DB_PORT'),
+
     }
 }
-
 
 # CACHES = {
 #     "default": {
@@ -116,31 +124,7 @@ DATABASES = {
 #     }
 # }
 
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME', 'motoapp'),
-        'USER': os.getenv('DB_USER', 'motoapp'),
-        'PASSWORD': os.getenv('DB_PASSWORD', '1234'),
-        'HOST': os.getenv('DB_HOST', 'localhost'),
-        'PORT': os.getenv('DB_PORT', '5432'),
-    }
-}
-
-
-
-
-
-
-
-# CACHES = {
-#     "default": {
-#         "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
-#         "LOCATION": BASE_DIR / "cache",
-#     }
-# }
-
+# Authentication backends: can include social login, email, etc.
 AUTHENTICATION_BACKENDS = (
     # 'social_core.backends.github.GithubOAuth2',
     'django.contrib.auth.backends.ModelBackend',
@@ -182,7 +166,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, STATIC_URL)
+#STATIC_ROOT = os.path.join(BASE_DIR, STATIC_URL)
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
@@ -201,50 +185,50 @@ INTERNAL_IPS = [
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
+# Default primary key field type for models
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# Custom user model
 AUTH_USER_MODEL = 'users.User'
 LOGIN_URL = '/user/login/'
 LOGIN_REDIRECT_URL = '/'
 
-
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'handlers': {
-#         'console': {
-#             'class': 'logging.StreamHandler',
-#         },
-#     },
-#     'loggers': {
-#         'django': {
-#             'handlers': ['console'],
-#             'level': 'DEBUG',
-#             'propagate': True,
-#         },
-#     },
-# }
+# Basic logging setup
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {  # 👈 Promtail читает stdout
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+}
 
 
-SOCIAL_AUTH_GITHUB_KEY = 'Ov23liTV568ysLorOG4z'
-SOCIAL_AUTH_GITHUB_SECRET = 'aa596ba5f37e109daabe5bddb7da6290c3554b1b'
+SOCIAL_AUTH_GITHUB_KEY = env('SOCIAL_AUTH_GITHUB_KEY')
+SOCIAL_AUTH_GITHUB_SECRET = env('SOCIAL_AUTH_GITHUB_SECRET')
 
 
 SOCIAL_AUTH_JSONFIELD_ENABLE = True
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-
-
-EMAIL_HOST = "smtp.yandex.ru"
-EMAIL_PORT = "456"
-EMAIL_HOST_USER = "neoloen@yandex.ru"
-EMAIL_HOST_PASSWORD = "jshpbrhckbjsmksj"
-EMAIL_USE_SSL = True
+# Email settings for production and development
+if DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+else:
+    EMAIL_HOST = env("EMAIL_HOST")
+    EMAIL_PORT = env("EMAIL_PORT")
+    EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+    EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+    EMAIL_USE_SSL = env.bool("EMAIL_USE_SSL", default=True)
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SERVER_EMAIL = EMAIL_HOST_USER
 EMAIL_ADMIN = EMAIL_HOST_USER
 
-
+# Django REST Framework configuration (pagination, renderer classes, etc.)
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 3,

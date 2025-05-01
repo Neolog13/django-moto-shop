@@ -1,7 +1,8 @@
+import logging
 from django.core.mail import send_mail
+from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import FormView, TemplateView
-import logging
 
 from main.forms import ContactForm
 
@@ -10,6 +11,9 @@ logger = logging.getLogger(__name__)
 
 
 class IndexView(TemplateView):
+    """
+    Displays the homepage with.
+    """
     template_name = 'main/index.html'
 
     def get_context_data(self, **kwargs):
@@ -20,36 +24,60 @@ class IndexView(TemplateView):
     
 
 class ContactView(FormView):
+    """
+    Renders and processes a contact form.
+
+    If the user is authenticated, pre-fills name and email fields.
+    Logs the message and sends an email upon valid form submission.
+    """
     template_name = 'main/contact_form.html'
     form_class = ContactForm
-    # success_url = reverse('')
+    # success_url = reverse_lazy('main:contact')
+
+    def get_success_url(self):
+        return reverse("main:contact") + "?success=1"
 
     def get_initial(self):
+        """
+        Prefills form with user's name and email if authenticated.
+        """
         initial = super().get_initial()
-        if self.request.user.is_authenticated:
-            if self.request.user.first_name:
-                initial['first_name'] = self.request.user.first_name
-            else:
-                initial['first_name'] = ''
-            if self.request.user.email:
-                initial['email'] = self.request.user.email
-            else:
-                initial['email'] = ''
+        user = self.request.user
+
+        if user.is_authenticated:
+            initial['first_name'] = getattr(user, 'first_name', '')
+            initial['email'] = getattr(user, 'email', '')
+
         return initial
 
     def form_valid(self, form):
-        name = form.cleaned_data['name']
+        """
+        Handles successful form submission: logs and sends an email.
+        """
+        first_name = form.cleaned_data['first_name']
         email = form.cleaned_data['email']
         message = form.cleaned_data['message']
 
-        # logger.debug(f"Message from {name} ({email}): {message}")
+        # Log the contact message
+        logger.info("Contact form submitted by %s <%s>: %s", first_name, email, message)
 
-        return super().form_valid(form)
-    
+        # Send email
+        send_mail(
+            subject=f"New Contact Message from {first_name}",
+            message=message,
+            from_email=email,
+            recipient_list=['neologfly@gmail.com'],
+            fail_silently=False
+        )
+        return redirect(self.get_success_url()) 
+        # return super().form_valid(form)
+
     def get_context_data(self, **kwargs):
+        """
+        Adds title to the context for display in the template.
+        """
         context = super().get_context_data(**kwargs)
         context["title"] = "Contact"
+        context["success"] = self.request.GET.get("success") == "1"
         return context
         
-    
-

@@ -1,13 +1,49 @@
 #python stuff
-vevn/
 .pylintrc
 __pychache__/
 cashe/
 
-#ide stuff
-.vscode
-.idea
-
-#django stuff
+# Django
+*.log
+*.pot
+*.pyc
+*.pyo
+__pycache__
 db.sqlite3
-media/
+*.sqlite3
+
+# Django settings
+*.env
+
+# PyCharm
+.idea/
+
+# VSCode
+.vscode/
+
+# Python virtual environments
+venv/
+.env/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Static files
+/static/
+/media/
+
+# MacOS specific
+.DS_Store
+
+# Windows specific
+Thumbs.db
+
+# Python bytecode files
+*.pyc
+*.pyo
+*.pyd
+
+# Local development files
+*.local

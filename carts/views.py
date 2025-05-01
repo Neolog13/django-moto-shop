@@ -6,15 +6,21 @@ from django.views import View
 from carts.mixins import CartMixin
 from carts.models import Cart
 from carts.utils import get_user_carts
-from catalog.models import Products
+from catalog.models import Product
 
 
 
 class CartAddView(CartMixin, View):
+    """
+    Add a product to the cart.
+
+    If the product is already in the cart, the quantity is increased. 
+    If the product is not in the cart, a new cart item is created.
+    """
 
     def post(self, request):
         product_id = request.POST.get("product_id")
-        product = Products.objects.get(id=product_id)
+        product = Product.objects.get(id=product_id)
 
         cart = self.get_cart(request, product=product)
         

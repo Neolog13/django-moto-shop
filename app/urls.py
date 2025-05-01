@@ -17,15 +17,16 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import include, path
-
 from django.conf.urls.static import static
-from debug_toolbar.toolbar import debug_toolbar_urls
-from app import settings
-
-from main.sitemaps import MotoSitemap, CategoryMotoSitemap 
 from django.contrib.sitemaps.views import sitemap
 
+from debug_toolbar.toolbar import debug_toolbar_urls
 
+from app import settings
+from main.sitemaps import MotoSitemap, CategoryMotoSitemap 
+
+
+# Sitemaps for SEO (Motorcycles and Categories)
 sitemaps = {
     'moto': MotoSitemap,
     'cats': CategoryMotoSitemap,
@@ -42,9 +43,11 @@ urlpatterns = [
     path("api/v1/", include("api_v1.urls", namespace="api_v1")),
     path("api/v1/drf-auth/", include('rest_framework.urls', namespace='rest_framework')),
     path("sitemap.xml/", sitemap, {'sitemaps': sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
+    #django-prometheus
+#    path('', include('django_prometheus.urls')),
 ]
 
-
+# Debug toolbar and media file serving only in DEBUG mode
 if settings.DEBUG:
     urlpatterns += debug_toolbar_urls()
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
