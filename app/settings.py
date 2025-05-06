@@ -10,9 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 import environ
-from django.conf.global_settings import EMAIL_BACKEND, EMAIL_HOST_USER
+from django.conf.global_settings import EMAIL_HOST_USER
 
 
 # Load environment variables from .env file (for secrets and environment-specific settings)
@@ -165,16 +166,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
-#STATIC_ROOT = os.path.join(BASE_DIR, STATIC_URL)
+STATIC_URL = '/static/'
+if not DEBUG:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'static'
+if DEBUG:
+    STATICFILES_DIRS = [
+        BASE_DIR / 'static',
     ]
 
-MEDIA_URL = 'media/'
-
 MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/media/'
+
 
 INTERNAL_IPS = [
     # ...

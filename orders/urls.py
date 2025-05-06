@@ -1,3 +1,10 @@
+"""
+URL configuration for the 'orders' application.
+
+Includes route for creating an order from the cart.
+"""
+
+
 from django.urls import path
 
 from orders import views

@@ -5,6 +5,7 @@ from django.db.models import Prefetch
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, TemplateView, UpdateView
+from requests import session
 
 from carts.models import Cart
 from common.mixins import CacheMixin
@@ -18,6 +19,10 @@ from users.forms import (
 
 
 class UserLoginView(LoginView):
+    """
+    View for handling user login.
+    Authenticates the user, assigns carts from session, and displays success message.
+    """
     template_name = 'users/login.html'
     form_class = UserLoginForm
 
@@ -53,6 +58,10 @@ class UserLoginView(LoginView):
 
 
 class UserRegistrationView(CreateView):
+    """
+    View for handling user registration.
+    Registers a new user, logs them in, assigns carts, and displays success message.
+    """
     template_name = 'users/registration.html'
     form_class = UserRegistrationForm
     success_url = reverse_lazy('users:profile')
@@ -80,17 +89,21 @@ class UserRegistrationView(CreateView):
 
 
 class UserProfileView(LoginRequiredMixin, CacheMixin, UpdateView):
+    """
+    View for displaying and updating user profile.
+    Also shows the user's order history with related items.
+    """
     template_name = 'users/profile.html'
     form_class = ProfileForm
     success_url = reverse_lazy('users:profile')
 
     def get_object(self, queryset=None):
         return self.request.user
-    
+
     def form_valid(self, form):
         messages.success(self.request, "Profile updated successfully")
         return super().form_valid(form)
-    
+
     def form_invalid(self, form):
         messages.error(self.request, "An error has occurred")
         return super().form_invalid(form)
@@ -112,6 +125,9 @@ class UserProfileView(LoginRequiredMixin, CacheMixin, UpdateView):
 
 
 class UserCartView(TemplateView):
+    """
+    View for displaying the user's cart.
+    """
     template_name = 'users/users_cart.html'
 
     def get_context_data(self, **kwargs):
@@ -121,6 +137,9 @@ class UserCartView(TemplateView):
 
 
 class UserPasswordChange(PasswordChangeView):
+    """
+    View for allowing the user to change their password.
+    """
     form_class = UserPasswordChangeForm
     success_url = reverse_lazy("users:password_change_done")
     template_name = "users/password_change_form.html"

@@ -5,7 +5,10 @@ from users.models import User
 
 
 class CartQueryset(models.QuerySet):
-    
+    """
+    Custom queryset for the Cart model, providing utility methods
+    for calculating total price and quantity across cart items.
+    """
 
     def total_price(self):
         return sum(cart.products_price() for cart in self)
@@ -18,6 +21,10 @@ class CartQueryset(models.QuerySet):
 
 
 class Cart(models.Model):
+    """
+    Represents a cart item containing a product and its quantity,
+    associated with either a user or an anonymous session.
+    """
 
     user = models.ForeignKey(to=User, on_delete=models.CASCADE, blank=True, null=True, verbose_name='User')
     product = models.ForeignKey(to=Product, on_delete=models.CASCADE, verbose_name='Product')

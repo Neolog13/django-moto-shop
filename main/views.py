@@ -69,8 +69,14 @@ class ContactView(FormView):
             recipient_list=['neologfly@gmail.com'],
             fail_silently=False
         )
-        return redirect(self.get_success_url()) 
-        # return super().form_valid(form)
+        return redirect(self.get_success_url())
+    
+    def form_invalid(self, form):
+        """
+        Logs an error when the contact form is submitted with invalid data.
+        """
+        logger.error("Failed to submit contact form due to invalid data: %s", form.errors)
+        return super().form_invalid(form)
 
     def get_context_data(self, **kwargs):
         """

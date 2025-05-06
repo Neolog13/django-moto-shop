@@ -11,6 +11,9 @@ done
 echo "🧩 Применяем миграции..."
 python manage.py migrate
 
+echo
+python manage.py collectstatic --noinput
+
 echo "👤 Создаём суперпользователя (если не существует)..."
 python manage.py shell -c "
 from django.contrib.auth import get_user_model
@@ -24,4 +27,5 @@ python manage.py loaddata fixtures/catalog/categories.json || echo "⚠️ categ
 python manage.py loaddata fixtures/catalog/products.json || echo "⚠️ products.json не найден"
 
 echo "🚀 Запуск сервера..."
-exec python manage.py runserver 0.0.0.0:8000
+exec gunicorn app.wsgi:application --bind 0.0.0.0:8000
+# exec python manage.py runserver 0.0.0.0:8000

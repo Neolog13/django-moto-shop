@@ -7,13 +7,14 @@
     <div class="container">
         <h3 class="text-center mb-4">Selected items</h3>
         <div class="container" id="cart-items-container">
-            <!-- Разметка корзины -->
+
+            <!-- Cart items section -->
             {% user_carts request as carts %}
             {% include "carts/includes/included_cart.html" %}
-            <!-- Закончилась разметка корзины -->
         </div>
     </div>
-    <!-- Детали заказа -->
+
+    <!-- Order details section -->
     <div class="container">
         <h3 class="text-center">Order details</h3>
         <div class="card mb-3">
@@ -27,28 +28,34 @@
                             value="{% if form.first_name.value %}{{ form.first_name.value }}{% endif %}"
                             name="first_name" required>
                                 {% if form.first_name.errors %}
-                                <div class="alert alert-danger alert-dismissible fade show">{{form.first_name.errors}}</div>
+                                <div class="alert alert-danger alert-dismissible fade show">{{ form.first_name.errors }}</div>
                                 {% endif %}
                         </div>
+
+                        <!-- Last Name -->
                         <div class="col-md-6 mb-3">
                             <label for="id_last_name" class="form-label">Lastname*:</label>
                             <input type="text" class="form-control" id="id_last_name" name="last_name"
                             value="{% if form.last_name.value %}{{ form.last_name.value }}{% endif %}"
                             required>
                             {% if form.last_name.errors %}
-                                <div class="alert alert-danger alert-dismissible fade show">{{form.last_name.errors}}</div>
+                                <div class="alert alert-danger alert-dismissible fade show">{{ form.last_name.errors }}</div>
                                 {% endif %}
                         </div>
+
+                        <!-- Phone Number -->
                         <div class="col-md-6 mb-3">
                             <label for="id_phone_number" class="form-label">Phone number*:</label>
                             <input type="text" class="form-control" id="id_phone_number" name="phone_number"
                             value="{% if form.phone_number.value %}{{ form.phone_number.value }}{% endif %}"
-                                placeholder="В формате: XXX-XXX-XX-XX"
+                                placeholder="Enter your phone number in the format: XXX-XXX-XX-XX"
                                 required>
                                 {% if form.phone_number.errors %}
-                                <div class="alert alert-danger alert-dismissible fade show">{{form.phone_number.errors}}</div>
+                                <div class="alert alert-danger alert-dismissible fade show">{{ form.phone_number.errors }}</div>
                                 {% endif %}
                         </div>
+
+                        <!-- Delivery Method -->
                         <div class="col-md-12 mb-3">
                             <label for="delivery" class="form-label">Delivery method: </label>
                             <div class="form-check form-check-inline">
@@ -62,15 +69,18 @@
                                 <label class="form-check-label" for="id_requires_delivery">In-store pickup</label>
                             </div>
                         </div>
+
+                        <!-- Delivery Address -->
                         <div class="mb-3" id="deliveryAddressField">
                             <label for="id_delivery_address" class="form-label">Delivery address*:</label>
                             <textarea class="form-control" id="id_delivery_address"
-                            value="{% if form.delivery_address.value %}{{ form.delivery_address.value }}{% endif %}"
-                                name="delivery_address" rows="2"></textarea>
+                                name="delivery_address" rows="2">{{ form.delivery_address.value|default:'' }}</textarea>
                                 {% if form.delivery_address.errors %}
                                 <div class="alert alert-danger alert-dismissible fade show">{{form.delivery_address.errors}}</div>
                                 {% endif %}
                         </div>
+
+                        <!-- Payment Method -->
                         <div class="col-md-12 mb-3">
                             <label class="form-label">Payment method: </label>
                             <div class="form-check form-check-inline">
@@ -82,12 +92,14 @@
                                 <input class="form-check-input" type="radio" name="payment_on_get"
                                     id="id_payment_on_get" value="1">
                                 <label class="form-check-label" for="id_payment_on_get">Cash/Card on delivery</label>
-                                {% if from.payment_on_get.errors %}
+                                {% if form.payment_on_get.errors %}
                                 <div class="alert alert-danger alert-dismissible fade show">{{form.payment_on_get.errors}}</div>
                                 {% endif %}
                             </div>
                         </div>
                     </div>
+
+                    <!-- Submit Button -->
                     <button type="submit" class="btn btn-dark">Order</button>
                 </form>
             </div>

@@ -5,7 +5,6 @@
 {% load humanize %}
 
 
-{% comment %} exclude modal cart {% endcomment %}
 {% block modal_cart %}{% endblock  %}
 
 {% block content %}
@@ -82,7 +81,7 @@
 
 
 
-            <!-- Корзина -->
+            <!-- Cart -->
             {% user_carts request as carts %}
 
             <div class="col-md-7">
@@ -91,30 +90,24 @@
                     <div class="container" id="cart-items-container">
                         <!-- Разметка корзины -->
                         {% include "carts/includes/included_cart.html" %}
-                        <!-- Закончилась разметка корзины -->
+                        <!-- End of Cart -->
                     </div>
                 </div>
             </div>
 
 
-            <!-- change password-->
+            <!-- Change password-->
             <div class="col-md-5">
                 <div class=" bg-white p-4 mb-4 mx-2 rounded custom-shadow">
                     <p class="text-center mb-4"><a href="{% url 'users:password_change' %}">Change password</a></p>
                 </div>
             </div>
 
-
-
-
-
-            <!-- Оформленные заказы -->
-            {% comment %} {% cache 60 user_orders user.id %} {% endcomment %}
-            {% comment %} {% cache 60 user_orders user.username%} {% endcomment %}
+            <!-- Placed orders -->
             <div class="col-md-12">
                 <div class=" bg-white p-4 mb-4 mx-2 rounded custom-shadow">
                     <h3 class="text-center mb-4">My orders</h3>
-                    <!-- Разметка заказов -->
+                    <!-- Order markup -->
                     <div class="container">
                         <div class="accordion" id="accordionExample">
                             {% for order in orders %}
@@ -153,12 +146,9 @@
                             {% endfor %}
                         </div>
                     </div>
-
-                    <!-- Закончилась разметка заказов -->
+                    <!-- End of order markup -->
                 </div>
-            {% comment %} {% endcache %} {% endcomment %}
             </div>
-            {% comment %} {% endcache %} {% endcomment %}
         </div>
     </div>
 </div>

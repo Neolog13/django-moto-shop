@@ -2,12 +2,18 @@ from django.contrib import admin
 
 from orders.models import Order, OrderItem
 
-# admin.site.register(Order)
-# admin.site.register(OrderItem)
 
-class OrderItemTabulareAdmin(admin.TabularInline):
+class OrderItemTabularAdmin(admin.TabularInline):
+    """
+    Inline admin interface for displaying OrderItem instances within an Order.
+    """
     model = OrderItem
-    fields = "product", "name", "price", "quantity"
+    fields = (
+        "product",
+        "name",
+        "price",
+        "quantity"
+    )
     search_fields = (
         "product",
         "name",
@@ -17,7 +23,16 @@ class OrderItemTabulareAdmin(admin.TabularInline):
 
 @admin.register(OrderItem)
 class OrderItemAdmin(admin.ModelAdmin):
-    list_display = "order", "product", "name", "price", "quantity"
+    """
+    Admin interface for individual OrderItem entries.
+    """
+    list_display = (
+        "order",
+        "product",
+        "name",
+        "price",
+        "quantity"
+    )
     search_fields = (
         "order",
         "product",
@@ -25,7 +40,10 @@ class OrderItemAdmin(admin.ModelAdmin):
     )
 
 
-class OrderTabulareAdmin(admin.TabularInline):
+class OrderTabularAdmin(admin.TabularInline):
+    """
+    Inline admin interface for displaying Order instances within another related model.
+    """
     model = Order
     fields = (
         "requires_delivery",
@@ -47,6 +65,10 @@ class OrderTabulareAdmin(admin.TabularInline):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
+    """
+    Admin interface for customer orders.
+    Displays order metadata and associated order items.
+    """
     list_display = (
         "id",
         "user",
@@ -67,5 +89,5 @@ class OrderAdmin(admin.ModelAdmin):
         "payment_on_get",
         "is_paid",
     )
-    inlines = (OrderItemTabulareAdmin,)
+    inlines = (OrderItemTabularAdmin,)
     
