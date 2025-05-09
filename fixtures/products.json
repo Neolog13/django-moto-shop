@@ -1,0 +1,119 @@
+[
+    {
+        "model": "catalog.product",
+        "pk": 2,
+        "fields": {
+            "name": "NORDEN 901 2024",
+            "slug": "norden-901-2024",
+            "description": "Brand: Husqvarna\r\nEngine displacement: 889 cc\r\nEngine type: 4-stroke\r\nCylinders: 2\r\nEngine start: Electric starter\r\nCooling system: Liquid cooling with water-oil heat exchanger\r\nFuel tank capacity: 19 L\r\nTransmission: 6-speed gearbox\r\nDrive type: 520 chain\r\nFront suspension: WP XPLOR USD 48 mm / 240 mm travel\r\nRear suspension: WP XPLOR PDS monoshock / 240 mm travel\r\nFront brake: Dual radial-mounted 4-piston calipers, 320 mm discs\r\nRear brake: 2-piston floating caliper, 260 mm disc\r\nSeat height: 875 / 895 mm (adjustable)\r\nGround clearance: 270 mm\r\nWeight: 214.5 kg\r\n\r\nThe Husqvarna Norden 901 is an outstanding adventure touring motorcycle. It is equipped with a powerful 889 cc parallel-twin engine producing 105 hp, housed in a lightweight steel frame. Designed for long-distance travel, the Norden 901 features a high-performance suspension system that easily handles off-road terrain, while its refined ergonomics turn every ride into an adventure rather than a challenge.\r\nExplore the world your way with the new Norden 901.",
+            "image": "products_images/03901_test_c.png",
+            "price": "16000.00",
+            "quantity": 10,
+            "category": 2
+        }
+    },
+    {
+        "model": "catalog.product",
+        "pk": 3,
+        "fields": {
+            "name": "Norden 901 Expedition 2024",
+            "slug": "norden-901-expedition-2024",
+            "description": "Brand: Husqvarna\r\nEngine displacement: 889 cc\r\nCylinders: 2\r\nPower: 77 kW\r\nCooling system: Liquid-cooled\r\nFuel tank capacity: 19 L\r\nTransmission: 6-speed gearbox\r\nClutch type: Slipper clutch / Mechanical\r\nFront suspension: WP XPLOR USD, 48 mm, 240 mm travel\r\nRear suspension: WP XPLOR PDS, 240 mm travel\r\nFront brake: Disc / 4-piston caliper, 320 mm\r\nRear brake: Disc / 2-piston caliper, 260 mm\r\nSeat height: 854 mm\r\nGround clearance: 875 / 895 mm\r\nWeight: 214.5 kg",
+            "image": "products_images/03901_test_c_LM83pKZ.png",
+            "price": "19000.00",
+            "quantity": 3,
+            "category": 2
+        }
+    },
+    {
+        "model": "catalog.product",
+        "pk": 4,
+        "fields": {
+            "name": "Svartpilen 401 ABS 2024",
+            "slug": "svartpilen-401-abs-2024",
+            "description": "Brand: Husqvarna\r\nEngine displacement: 799 cc\r\nPower: 105 hp\r\nEngine start: Electric starter\r\nFuel tank capacity: 14 L\r\nTransmission: 6-speed gearbox with Up/Down Easy Shift (QuickShifter)\r\nClutch type: APTC slipper clutch\r\nFront suspension: WP APEX USD 43 mm, 140 mm travel, Bosch 9.3 MP\r\nRear suspension: WP APEX Monoshock, 150 mm travel\r\nFront brake: Dual 4-piston calipers\r\nRear brake: Single 2-piston caliper, Bosch 9.3 MP\r\nSeat height: 820 mm\r\nWeight: 181 kg\r\n\r\nThe dynamic Svartpilen 801 is an all-new, powerful roadster from Husqvarna Motorcycles, precisely engineered to deliver pure riding enjoyment and set a new benchmark in the street motorcycle segment.\r\n\r\nOne of the most versatile street bikes in its class, the Svartpilen 801 offers sharp handling, dynamic acceleration, and a high level of rider comfort.",
+            "image": "products_images/034p4p4r.png",
+            "price": "8000.00",
+            "quantity": 23,
+            "category": 2
+        }
+    },
+    {
+        "model": "catalog.product",
+        "pk": 5,
+        "fields": {
+            "name": "Vitpilen 401 ABS 2023",
+            "slug": "vitpilen-401-abs-2023",
+            "description": "Brand: Husqvarna\r\nEngine displacement: 398 cc\r\nEngine type: 4-stroke\r\nCylinders: Single-cylinder\r\nEngine start: Electric starter\r\nCooling system: Liquid-cooled\r\nFuel tank capacity: 13 L\r\nTransmission: 6-speed gearbox\r\nDrive type: 520 chain\r\nFront suspension: WP APEX 43 mm, 150 mm travel\r\nRear suspension: WP APEX monoshock, 150 mm travel\r\nFront brake: 320 mm ByBre disc with opposing 4-piston caliper\r\nRear brake: 240 mm disc\r\nSeat height: 820 mm\r\nGround clearance: 180 mm\r\nWeight: 154.5 kg\r\n\r\nHusqvarna Vitpilen 401: Style and power in one motorcycle.\r\nThe 2024 Husqvarna Vitpilen 401 blends minimalist design with advanced technology and strong performance. Lightweight, agile, and stylish, it's the perfect choice for both urban streets and twisty backroads.",
+            "image": "products_images/034p4p4r_7TrzKe8.png",
+            "price": "7000.00",
+            "quantity": 12,
+            "category": 2
+        }
+    },
+    {
+        "model": "catalog.product",
+        "pk": 6,
+        "fields": {
+            "name": "FC 250 2025",
+            "slug": "fc-250-2025",
+            "description": "Brand: Husqvarna\r\nEngine displacement: 250 cc\r\nEngine type: 4-stroke\r\nCylinders: 1\r\nEngine start: Electric starter\r\nFuel tank capacity: 7.2 liters\r\nTransmission: 5-speed gearbox\r\nClutch type: Wet, multi-disc DS clutch with Brembo hydraulic actuation\r\nFront suspension: WP XACT USD, 48 mm\r\nRear suspension: WP XACT monoshock with linkage\r\nFront brake: Brembo, 260 mm\r\nRear brake: Brembo, 220 mm\r\nWheelbase: 1,485 mm\r\nSeat height: 939 mm\r\nGround clearance: 336 mm\r\nWeight: 101.2 kg\r\n\r\nThe Husqvarna FC 250 features a high-performance engine and a perfectly balanced chassis. With an ideally positioned center of gravity, this motorcycle offers phenomenal handling. Equipped with a PANKL gearbox, optimized ergonomics, a composite subframe, and WP XACT suspension, the FC 250 stands out as one of the most technologically advanced motocross bikes available.\r\n\r\nIts explosive and high-revving 250 cc 4-stroke engine with titanium valves delivers 47 horsepower and impressive torque. Specifically tuned for motocross, the FC 250 engine ensures total control across the entire RPM range - and it weighs just 26 kg.",
+            "image": "products_images/034p4p4r_d98CZjc.png",
+            "price": "13000.00",
+            "quantity": 7,
+            "category": 2
+        }
+    },
+    {
+        "model": "catalog.product",
+        "pk": 7,
+        "fields": {
+            "name": "TE 300i HERITAGE 2025",
+            "slug": "te-300i-heritage-2025",
+            "description": "Brand: Husqvarna\r\nEngine displacement: 300 cc\r\nEngine type: 2-stroke\r\nCylinders: Single-cylinder\r\nEngine start: Electric starter\r\nCooling system: Liquid-cooled\r\nFuel tank capacity: 8.5 L\r\nTransmission: 6-speed gearbox\r\nDrive type: 520 chain with X-ring\r\nFront suspension: WP XACT USD 48 mm, 300 mm travel\r\nRear suspension: WP XACT monoshock with linkage, 300 mm travel\r\nFront brake: Disc brake, 260 mm\r\nRear brake: Disc brake, 220 mm\r\n\r\nThe Husqvarna TE 300i features revolutionary fuel injection technology, making it easier to maintain and operate than ever before. There's no longer any need to mix fuel and oil manually or adjust the bike for altitude or cold weather - the electronics take care of everything. Just fill the separate oil tank, and you're ready to enjoy the ride and the excellent performance of a modern 2-stroke engine.",
+            "image": "products_images/034p4p4r_IWpYvFF.png",
+            "price": "14750.00",
+            "quantity": 3,
+            "category": 2
+        }
+    },
+    {
+        "model": "catalog.product",
+        "pk": 8,
+        "fields": {
+            "name": "FE 350 2025",
+            "slug": "fe-350-2025",
+            "description": "Brand: Husqvarna\r\nEngine displacement: 350 cc\r\nEngine type: 4-stroke\r\nCylinders: Single-cylinder\r\nEngine start: Electric starter\r\nCooling system: Liquid-cooled\r\nFuel tank capacity: 8 L\r\nTransmission: 6-speed gearbox\r\nDrive type: 520 chain with X-ring\r\nFront suspension: WP XACT USD 48 mm, 300 mm travel\r\nRear suspension: WP XACT monoshock with linkage, 300 mm travel\r\nFront brake: 260 mm disc brake\r\nRear brake: 220 mm disc brake\r\nSeat height: 952 mm\r\nGround clearance: 343 mm\r\nWeight: 109.4 kg\r\n\r\nThe Husqvarna FE 350 offers the lightweight feel of the FE 250 combined with power comparable to the FE 450, making it an ideally balanced motorcycle for both everyday trail riding and high-level competition.\r\n\r\nIt features a 6-speed transmission specially developed for enduro, and a handlebar-mounted engine map switch with traction control toggle. These tools allow the rider to easily adapt the bike's performance to different terrain and conditions - effortlessly and on the go.",
+            "image": "products_images/034p4p4r_ybb3DAj.png",
+            "price": "9500.00",
+            "quantity": 8,
+            "category": 2
+        }
+    },
+    {
+        "model": "catalog.product",
+        "pk": 9,
+        "fields": {
+            "name": "CB200X",
+            "slug": "cb200x",
+            "description": "The Honda CB200X is based on a 184 cc, 17 hp, 1-cylinder engine capable of propelling the 147 kg motorcycle to 130 km/h. Considering that the motorcycle was designed for the Indian and Southeast Asian markets, it is extremely unpretentious in terms of gasoline quality: the compression ratio is only 9.5:1",
+            "image": "products_images/034p4p4r_r7C2qfs.png",
+            "price": "7000.00",
+            "quantity": 11,
+            "category": 3
+        }
+    },
+    {
+        "model": "catalog.product",
+        "pk": 10,
+        "fields": {
+            "name": "CB200X1",
+            "slug": "cb200x1",
+            "description": "Inspired by the legendary Africa Twin, the CB500X combines off-road styling with an aggressive riding stance. It features a separate function big piston fork (SFF-BP) paired with twin front disc brakes for enhanced control, while the tall windscreen ensures rider comfort on longer journeys.\r\n\r\nThis dynamic motorcycle is built for those who want to conquer the urban jungle. With its powerful twin-cylinder engine and long-travel suspension, the CB500X is ready for your next adventure - on or off the road.",
+            "image": "products_images/25bl7xzj6h4nqee6jhkt6oi4kgqdip5h.jpg",
+            "price": "6000.00",
+            "quantity": 2,
+            "category": 3
+        }
+    }
+]

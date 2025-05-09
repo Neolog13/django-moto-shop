@@ -6,7 +6,7 @@ from catalog.models import Product
 
 
 class GetPagesTestCase(TestCase):
-    fixtures = ['fixtures/catalog/categories.json', 'fixtures/catalog/products.json']
+    fixtures = ['fixtures/categories.json', 'fixtures/products.json']
 
     def setUp(self):
         "initialization before executing the first test"

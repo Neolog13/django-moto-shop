@@ -1,0 +1,22 @@
+[
+    {
+        "model": "catalog.category",
+        "pk": 2,
+        "fields": {
+            "name": "Husqvarna",
+            "description": "Husqvarna Motorcycles is a historic European brand known for its blend of Swedish heritage, innovative engineering, and modern design. The company produces a wide range of bikes, including off-road, motocross, enduro, and street models. Husqvarna is especially respected in the off-road world for its lightweight performance machines and race-proven technology. In recent years, the brand has expanded into urban mobility with stylish street bikes like the Vitpilen and Svartpilen, combining minimalist aesthetics with agile performance.",
+            "image": "",
+            "slug": "husqvarna"
+        }
+    },
+    {
+        "model": "catalog.category",
+        "pk": 3,
+        "fields": {
+            "name": "Honda",
+            "description": "Honda Motorcycles are renowned worldwide for their exceptional reliability, cutting-edge technology, and versatile performance. From agile scooters and commuter bikes to high-performance sport and touring models, Honda offers something for every rider. With a legacy built on innovation and quality, Honda continues to set industry standards in engineering, comfort, and rider experience.",
+            "image": "",
+            "slug": "honda"
+        }
+    }
+]

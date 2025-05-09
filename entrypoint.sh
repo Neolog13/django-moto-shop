@@ -3,13 +3,13 @@
 set -e  # Остановить выполнение при ошибке
 
 echo "⏳ Ожидаем доступность PostgreSQL..."
-while ! nc -z "$DB_HOST" "$DB_PORT"; do
-    echo "Ждём $DB_HOST:$DB_PORT..."
+while ! nc -z "$POSTGRES_HOST" "$POSTGRES_PORT"; do
+    echo "Ждём $POSTGRES_HOST:$POSTGRES_PORT..."
     sleep 1
 done
 
-echo "🧩 Применяем миграции..."
-python manage.py migrate
+# echo "🧩 Применяем миграции..."
+# python manage.py migrate
 
 echo
 python manage.py collectstatic --noinput
@@ -23,8 +23,8 @@ if not User.objects.filter(username='root').exists():
 "
 
 echo "📦 Загружаем фикстуры..."
-python manage.py loaddata fixtures/catalog/categories.json || echo "⚠️ categories.json не найден"
-python manage.py loaddata fixtures/catalog/products.json || echo "⚠️ products.json не найден"
+python manage.py loaddata fixtures/categories.json || echo "⚠️ categories.json не найден"
+python manage.py loaddata fixtures/products.json || echo "⚠️ products.json не найден"
 
 echo "🚀 Запуск сервера..."
 exec gunicorn app.wsgi:application --bind 0.0.0.0:8000

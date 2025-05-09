@@ -90,7 +90,7 @@
   <!-- Filter by category -->
   <div class="dropdown mb-3">
     <button class="btn btn-outline-success text-white dropdown-toggle btn-dark" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-      Filters by category
+      Filters by brand
     </button>
     <form action="{% url "catalog:category" slug_url %}" method="get" class="dropdown-menu bg-dark" data-bs-theme="dark">
       <p class="text-white mx-3 mt-3">Filter by category</p>
@@ -126,7 +126,7 @@
                             {% if product.bodyline %}
                             {{ product.bodyline|truncatechars:100 }}
                             {% else %}
-                            {{ product.description|truncatechars:20 }}
+                            {{ product.description|truncatechars:80 }}
                             {% endif %}
                           {% endautoescape %}
                         </p>
