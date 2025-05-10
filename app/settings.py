@@ -111,7 +111,8 @@ DATABASES = {
         'NAME': env('POSTGRES_NAME'),
         'USER': env('POSTGRES_USER'),
         'PASSWORD': env('POSTGRES_PASSWORD'),
-        'HOST': env('POSTGRES_HOST'),
+        # 'HOST': env('POSTGRES_HOST'),
+        'HOST': 'postgres',
         'PORT': env('POSTGRES_PORT'),
     }
 }
@@ -218,18 +219,18 @@ SOCIAL_AUTH_GITHUB_SECRET = env('SOCIAL_AUTH_GITHUB_SECRET')
 SOCIAL_AUTH_JSONFIELD_ENABLE = True
 
 # Email settings for production and development
-if DEBUG:
-    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-else:
-    EMAIL_HOST = env("EMAIL_HOST")
-    EMAIL_PORT = env("EMAIL_PORT")
-    EMAIL_HOST_USER = env("EMAIL_HOST_USER")
-    EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
-    EMAIL_USE_SSL = env.bool("EMAIL_USE_SSL", default=True)
+# if DEBUG:
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# else:
+#     EMAIL_HOST = env("EMAIL_HOST")
+#     EMAIL_PORT = env("EMAIL_PORT")
+#     EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+#     EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+#     EMAIL_USE_SSL = env.bool("EMAIL_USE_SSL", default=True)
 
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-SERVER_EMAIL = EMAIL_HOST_USER
-EMAIL_ADMIN = EMAIL_HOST_USER
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+# SERVER_EMAIL = EMAIL_HOST_USER
+# EMAIL_ADMIN = EMAIL_HOST_USER
 
 # Django REST Framework configuration (pagination, renderer classes, etc.)
 REST_FRAMEWORK = {

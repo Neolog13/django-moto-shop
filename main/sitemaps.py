@@ -1,5 +1,5 @@
 from django.contrib.sitemaps import Sitemap
-from catalog.models import Product, Category
+from catalog.models import Products, Categories
 
 
 class MotoSitemap(Sitemap):
@@ -13,11 +13,12 @@ class MotoSitemap(Sitemap):
         changefreq (str): The change frequency for the products. Default is 'monthly'.
         priority (float): The priority of the products on the website. Default is 0.9.
     """
-    changefreq = 'monthly'
+
+    changefreq = "monthly"
     priority = 0.9
 
     def items(self):
-        return Product.objects.all()
+        return Products.objects.all()
 
 
 class CategoryMotoSitemap(Sitemap):
@@ -31,9 +32,9 @@ class CategoryMotoSitemap(Sitemap):
         changefreq (str): The change frequency for the categories. Default is 'monthly'.
         priority (float): The priority of the categories on the website. Default is 0.9.
     """
-    changefreq = 'monthly'
+
+    changefreq = "monthly"
     priority = 0.9
 
     def items(self):
-        return Category.objects.all()
-    
+        return Categories.objects.all()

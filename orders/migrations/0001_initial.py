@@ -43,7 +43,7 @@ class Migration(migrations.Migration):
                 ('quantity', models.PositiveIntegerField(default=0, verbose_name='Quantity')),
                 ('created_timestamp', models.DateTimeField(auto_now_add=True, verbose_name='Sale date')),
                 ('order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='orders.order', verbose_name='Order')),
-                ('product', models.ForeignKey(default=None, null=True, on_delete=django.db.models.deletion.SET_DEFAULT, to='catalog.Product', verbose_name='Product')),
+                ('product', models.ForeignKey(default=None, null=True, on_delete=django.db.models.deletion.SET_DEFAULT, to='catalog.Products', verbose_name='Product')),
             ],
             options={
                 'verbose_name': 'Sold product ',

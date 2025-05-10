@@ -8,8 +8,8 @@ while ! nc -z "$POSTGRES_HOST" "$POSTGRES_PORT"; do
     sleep 1
 done
 
-# echo "🧩 Применяем миграции..."
-# python manage.py migrate
+echo "🧩 Применяем миграции..."
+python manage.py migrate
 
 echo
 python manage.py collectstatic --noinput

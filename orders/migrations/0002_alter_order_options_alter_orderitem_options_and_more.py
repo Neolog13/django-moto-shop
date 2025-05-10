@@ -118,7 +118,7 @@ class Migration(migrations.Migration):
                 default=None,
                 null=True,
                 on_delete=django.db.models.deletion.SET_DEFAULT,
-                to='catalog.Product',
+                to='catalog.Products',
                 verbose_name="Продукт",
             ),
         ),

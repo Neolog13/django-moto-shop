@@ -1,7 +1,7 @@
 from django.db import models
 
 
-from catalog.models import Product
+from catalog.models import Products
 from users.models import User
 
 
@@ -22,6 +22,7 @@ class Order(models.Model):
     """
     Model representing a customer order.
     """
+
     user = models.ForeignKey(
         to=User, on_delete=models.SET_DEFAULT, verbose_name="User", default=None
     )
@@ -57,9 +58,10 @@ class OrderItem(models.Model):
     """
     Model representing a specific item in an order.
     """
+
     order = models.ForeignKey(to=Order, on_delete=models.CASCADE, verbose_name="Order")
     product = models.ForeignKey(
-        to=Product,
+        to=Products,
         on_delete=models.SET_DEFAULT,
         null=True,
         verbose_name="Product",

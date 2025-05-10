@@ -1,6 +1,6 @@
 [
     {
-        "model": "catalog.product",
+        "model": "catalog.products",
         "pk": 2,
         "fields": {
             "name": "NORDEN 901 2024",
@@ -13,7 +13,7 @@
         }
     },
     {
-        "model": "catalog.product",
+        "model": "catalog.products",
         "pk": 3,
         "fields": {
             "name": "Norden 901 Expedition 2024",
@@ -26,7 +26,7 @@
         }
     },
     {
-        "model": "catalog.product",
+        "model": "catalog.products",
         "pk": 4,
         "fields": {
             "name": "Svartpilen 401 ABS 2024",
@@ -39,7 +39,7 @@
         }
     },
     {
-        "model": "catalog.product",
+        "model": "catalog.products",
         "pk": 5,
         "fields": {
             "name": "Vitpilen 401 ABS 2023",
@@ -52,7 +52,7 @@
         }
     },
     {
-        "model": "catalog.product",
+        "model": "catalog.products",
         "pk": 6,
         "fields": {
             "name": "FC 250 2025",
@@ -65,7 +65,7 @@
         }
     },
     {
-        "model": "catalog.product",
+        "model": "catalog.products",
         "pk": 7,
         "fields": {
             "name": "TE 300i HERITAGE 2025",
@@ -78,7 +78,7 @@
         }
     },
     {
-        "model": "catalog.product",
+        "model": "catalog.products",
         "pk": 8,
         "fields": {
             "name": "FE 350 2025",
@@ -91,7 +91,7 @@
         }
     },
     {
-        "model": "catalog.product",
+        "model": "catalog.products",
         "pk": 9,
         "fields": {
             "name": "CB200X",
@@ -104,7 +104,7 @@
         }
     },
     {
-        "model": "catalog.product",
+        "model": "catalog.products",
         "pk": 10,
         "fields": {
             "name": "CB200X1",

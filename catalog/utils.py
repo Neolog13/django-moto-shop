@@ -5,7 +5,7 @@ from django.contrib.postgres.search import (
     SearchHeadline,
 )
 
-from catalog.models import Product
+from catalog.models import Products
 
 
 def q_search(query):
@@ -24,21 +24,23 @@ def q_search(query):
     search_query = SearchQuery(query)
 
     products = (
-        Product.objects.annotate(rank=SearchRank(search_vector, search_query))
+        Products.objects.annotate(rank=SearchRank(search_vector, search_query))
         .filter(rank__gt=0)
         .order_by("-rank")
     )
 
     products = products.annotate(
         headline=SearchHeadline(
-            "name", search_query,
+            "name",
+            search_query,
             start_sel='<span style="background-color: yellow;">',
             stop_sel="</span>",
         )
     )
     products = products.annotate(
         bodyline=SearchHeadline(
-            "description", search_query,
+            "description",
+            search_query,
             start_sel='<span style="background-color: yellow;">',
             stop_sel="</span>",
         )

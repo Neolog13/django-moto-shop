@@ -1,7 +1,7 @@
 import logging
 from django.core.exceptions import FieldError
 
-from catalog.models import Product
+from catalog.models import Products
 from catalog.utils import q_search
 
 
@@ -22,7 +22,7 @@ def filter_products(category_slug=None, query=None, order_by=None):
     Returns:
         QuerySet: Filtered and sorted list of products.
     """
-    products = Product.objects.all()
+    products = Products.objects.all()
 
     if category_slug:
         products = products.filter(category__slug=category_slug)

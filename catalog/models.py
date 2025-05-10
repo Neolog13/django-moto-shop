@@ -4,13 +4,16 @@ from django.db import models
 from django.urls import reverse
 
 
-class Category(models.Model):
+class Categories(models.Model):
     """
     Represents a product category with optional description and image.
     """
+
     name = models.CharField(max_length=150, unique=True)
     description = models.TextField(blank=True, null=True, verbose_name="Description")
-    image = models.ImageField(upload_to="categories_images", blank=True, null=True, verbose_name="Image")
+    image = models.ImageField(
+        upload_to="categories_images", blank=True, null=True, verbose_name="Image"
+    )
     slug = models.SlugField(max_length=200, unique=True, blank=True, null=True)
 
     class Meta:
@@ -18,16 +21,17 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-    
+
     def get_absolute_url(self):
         return reverse("catalog:category", kwargs={"category_slug": self.slug})
 
 
-class Product(models.Model):
+class Products(models.Model):
     """
     Represents a product with name, price, category, and optional image/description.
     Supports full-text search indexing.
     """
+
     name = models.CharField(max_length=150, unique=True, verbose_name="Title")
     slug = models.SlugField(
         max_length=200, unique=True, blank=True, null=True, verbose_name="URL"
@@ -41,7 +45,7 @@ class Product(models.Model):
     )
     quantity = models.PositiveIntegerField(default=0)
     category = models.ForeignKey(
-        to=Category, on_delete=models.CASCADE, verbose_name="Category"
+        to=Categories, on_delete=models.CASCADE, verbose_name="Category"
     )
 
     class Meta:
@@ -51,9 +55,10 @@ class Product(models.Model):
         indexes = [
             GinIndex(
                 SearchVector("name", "description", config="simple"),
-                name="product_search_vector_idx"
+                name="product_search_vector_idx",
             ),
         ]
+
     def __str__(self):
         return f"{self.name} price = {self.price}"
 

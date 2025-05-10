@@ -4,34 +4,42 @@ from django.shortcuts import get_object_or_404
 from django.views import View
 
 from carts.mixins import CartMixin
-from carts.services.cart_services import add_product_to_cart, remove_product_from_cart, update_cart_item_quantity
-from catalog.models import Product
+from carts.services.cart_services import (
+    add_product_to_cart,
+    remove_product_from_cart,
+    update_cart_item_quantity,
+)
+from catalog.models import Products
 
 
 class CartAddView(CartMixin, View):
     """
     Add a product to the cart.
 
-    If the product is already in the cart, the quantity is increased. 
+    If the product is already in the cart, the quantity is increased.
     If the product is not in the cart, a new cart item is created.
     """
 
     def post(self, request):
         product_id = request.POST.get("product_id")
-        product = get_object_or_404(Product, id=product_id)
+        product = get_object_or_404(Products, id=product_id)
 
         add_product_to_cart(
             user=request.user if request.user.is_authenticated else None,
-            session_key=request.session.session_key if not request.user.is_authenticated else None,
-            product=product
+            session_key=(
+                request.session.session_key
+                if not request.user.is_authenticated
+                else None
+            ),
+            product=product,
         )
 
         response_data = {
-        "message": "Item added to cart",
-        "cart_items_html": self.render_cart(request)
-    }
+            "message": "Item added to cart",
+            "cart_items_html": self.render_cart(request),
+        }
         return JsonResponse(response_data)
-    
+
 
 class CartChangeView(CartMixin, View):
     """
@@ -49,7 +57,7 @@ class CartChangeView(CartMixin, View):
             response_data = {
                 "message": "Quantity updated",
                 "quantity": new_quantity,
-                "cart_items_html": self.render_cart(request)
+                "cart_items_html": self.render_cart(request),
             }
 
         except ValueError as e:
@@ -73,7 +81,7 @@ class CartRemoveView(CartMixin, View):
 
             response_data = {
                 "message": "Product removed from the cart",
-                "cart_items_html": self.render_cart(request)
+                "cart_items_html": self.render_cart(request),
             }
 
         except ObjectDoesNotExist:

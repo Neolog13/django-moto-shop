@@ -2,7 +2,7 @@ from django import template
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.utils.http import urlencode
 
-from catalog.models import Category, Product
+from catalog.models import Categories, Products
 
 
 register = template.Library()
@@ -15,7 +15,7 @@ def tag_categories():
 
     Used to display a list of categories in templates.
     """
-    return Category.objects.all()
+    return Categories.objects.all()
 
 
 @register.simple_tag
@@ -30,7 +30,7 @@ def tag_products(page_number=1, products_per_page=3):
     Returns:
         Page: A Django Page object containing products.
     """
-    products = Product.objects.all()
+    products = Products.objects.all()
     paginator = Paginator(products, products_per_page)
 
     try:
@@ -39,6 +39,7 @@ def tag_products(page_number=1, products_per_page=3):
         page = paginator.page(1)
 
     return page
+
 
 @register.simple_tag
 def tag_products_by_category(category):
@@ -51,7 +52,7 @@ def tag_products_by_category(category):
     Returns:
         QuerySet: Filtered products by category.
     """
-    return Product.objects.filter(category=category)
+    return Products.objects.filter(category=category)
 
 
 @register.simple_tag(takes_context=True)
@@ -66,6 +67,6 @@ def change_params(context, **kwargs):
     Returns:
         str: Encoded URL query string.
     """
-    query = context['request'].GET.dict()
+    query = context["request"].GET.dict()
     query.update(kwargs)
     return urlencode(query)

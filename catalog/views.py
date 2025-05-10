@@ -1,7 +1,7 @@
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.views.generic import DetailView, ListView
 
-from catalog.models import Category, Product
+from catalog.models import Categories, Products
 from catalog.services.product_filtering import filter_products
 
 
@@ -14,7 +14,8 @@ class CategoriesView(ListView):
         template_name (str): Template for rendering the categories.
         context_object_name (str): Context variable name for template access.
     """
-    queryset = Category.objects.all()
+
+    queryset = Categories.objects.all()
     template_name = "catalog/catalog.html"
     context_object_name = "categories"
 
@@ -24,7 +25,7 @@ class CategoriesView(ListView):
         """
         context = super().get_context_data(**kwargs)
         context["title"] = "Home - Categories"
-        context["is_catalog_active"] = self.request.path.startswith('/catalog/')
+        context["is_catalog_active"] = self.request.path.startswith("/catalog/")
         return context
 
 
@@ -40,7 +41,8 @@ class CatalogView(ListView):
         paginate_by (int): Number of products per page.
         slug_url_kwarg (str): URL keyword argument for category slug.
     """
-    model = Product
+
+    model = Products
     template_name = "catalog/category.html"
     context_object_name = "products"
     paginate_by = 3
@@ -54,7 +56,9 @@ class CatalogView(ListView):
         query = self.request.GET.get("q")
         order_by = self.request.GET.get("order_by")
 
-        return filter_products(category_slug=category_slug, query=query, order_by=order_by) 
+        return filter_products(
+            category_slug=category_slug, query=query, order_by=order_by
+        )
 
     def paginate_queryset(self, queryset, page_size):
         """
@@ -91,12 +95,14 @@ class CatalogView(ListView):
         Adds extra context variables for the product listing view.
         """
         context = super().get_context_data(**kwargs)
-        context.update({
-            "title": "Home - Catalog",
-            "slug_url": self.kwargs.get(self.slug_url_kwarg),
-            "categories": Category.objects.all(),
-            "is_catalog_active": self.request.path.startswith("/catalog/")
-        })
+        context.update(
+            {
+                "title": "Home - Catalog",
+                "slug_url": self.kwargs.get(self.slug_url_kwarg),
+                "categories": Categories.objects.all(),
+                "is_catalog_active": self.request.path.startswith("/catalog/"),
+            }
+        )
 
         if not context["products"]:
             context["message"] = "No products found in this category"
@@ -113,6 +119,7 @@ class ProductView(DetailView):
         slug_url_kwarg (str): URL keyword argument for product slug.
         context_object_name (str): Context variable name for the product.
     """
+
     template_name = "catalog/product.html"
     slug_url_kwarg = "product_slug"
     context_object_name = "product"
@@ -121,14 +128,14 @@ class ProductView(DetailView):
         """
         Retrieves a product instance based on its slug.
         """
-        product = Product.objects.get(slug=self.kwargs.get(self.slug_url_kwarg))
+        product = Products.objects.get(slug=self.kwargs.get(self.slug_url_kwarg))
         return product
-    
+
     def get_context_data(self, **kwargs):
         """
         Adds additional context to the product detail view.
         """
         context = super().get_context_data(**kwargs)
-        context['title'] = self.object.name
-        context["is_catalog_active"] = self.request.path.startswith('/catalog/')
+        context["title"] = self.object.name
+        context["is_catalog_active"] = self.request.path.startswith("/catalog/")
         return context

@@ -1,6 +1,6 @@
 [
     {
-        "model": "catalog.category",
+        "model": "catalog.categories",
         "pk": 2,
         "fields": {
             "name": "Husqvarna",
@@ -10,7 +10,7 @@
         }
     },
     {
-        "model": "catalog.category",
+        "model": "catalog.categories",
         "pk": 3,
         "fields": {
             "name": "Honda",

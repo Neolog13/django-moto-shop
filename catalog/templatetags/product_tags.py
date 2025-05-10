@@ -1,6 +1,6 @@
 from django import template
 
-from catalog.models import Product
+from catalog.models import Products
 
 
 register = template.Library()
@@ -11,4 +11,4 @@ def tag_products():
     """
     Returns a queryset of all products
     """
-    return Product.objects.all()
+    return Products.objects.all()
