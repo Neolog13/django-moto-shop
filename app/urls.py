@@ -43,8 +43,7 @@ urlpatterns = [
     path("api/v1/", include("api_v1.urls", namespace="api_v1")),
     path("api/v1/drf-auth/", include('rest_framework.urls', namespace='rest_framework')),
     path("sitemap.xml/", sitemap, {'sitemaps': sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
-    #django-prometheus
-#    path('', include('django_prometheus.urls')),
+    path('', include('django_prometheus.urls')),
 ]
 
 # Debug toolbar and media file serving only in DEBUG mode
