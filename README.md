@@ -127,5 +127,5 @@ You are free to use, modify, and distribute it.
 
 ## ✍️ Author
 
-Created by \[]
-GitHub repository: *coming soon*
+Created by \[Neolog13]
+GitHub repository: https://github.com/Neolog13/django-moto-shop
